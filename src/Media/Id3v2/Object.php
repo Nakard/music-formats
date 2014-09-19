@@ -19,6 +19,9 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Object
 {
+    /**
+     * @var Header
+     */
     private $header;
 
     /**
@@ -29,16 +32,22 @@ class Object
         if ('audio/mpeg' !== $file->getMimeType()) {
             throw new \InvalidArgumentException($file->getFilename() . ' is not an MPEG file');
         }
-        $this->setHeader($file);
+        $this->header = new Header($file);
     }
 
     /**
-     * Sets header of Id3v2 file
-     *
-     * @param File $file
+     * @param Header $header
      */
-    private function setHeader(File $file)
+    public function setHeader(Header $header)
     {
-        $this->header = new Header($file);
+        $this->header = $header;
+    }
+
+    /**
+     * @return Header
+     */
+    public function getHeader()
+    {
+        return $this->header;
     }
 }
