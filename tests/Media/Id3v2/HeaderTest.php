@@ -20,19 +20,65 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class HeaderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var File
+     */
+    private $file;
+
+    /**
+     * @var Header
+     */
+    private $header;
+
+    protected function setUp()
+    {
+        $this->file = new File(__DIR__ . '/asset/tagtest.ID3v2.4.mp3');
+        $this->header = new Header($this->file);
+    }
+
     public function testConstruct()
     {
-        $file = new File(__DIR__ . '/asset/tagtest.ID3v2.4.mp3');
-        $header = new Header($file);
-        $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Header', $header);
-        $this->assertSame('ID3', $header->getIdentifier());
-        $this->assertSame(0x04, $header->getVersion());
-        $this->assertSame(0x00, $header->getRevision());
-        $this->assertSame(0x80, $header->getFlags());
-        $this->assertSame(0x000b535, $header->getSize());
-        $this->assertTrue($header->isUnsynchronized());
-        $this->assertFalse($header->isExtendedHeaderUsed());
-        $this->assertFalse($header->isExperimentalSet());
+        $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Header', $this->header);
+    }
+
+    public function testGetIdentifier()
+    {
+        $this->assertSame('ID3', $this->header->getIdentifier());
+    }
+
+    public function testGetVersion()
+    {
+        $this->assertSame(0x04, $this->header->getVersion());
+    }
+
+    public function testGetRevision()
+    {
+        $this->assertSame(0x00, $this->header->getRevision());
+    }
+
+    public function testGetFlags()
+    {
+        $this->assertSame(0x80, $this->header->getFlags());
+    }
+
+    public function testGetSize()
+    {
+        $this->assertSame(0x000b535, $this->header->getSize());
+    }
+
+    public function testIsUnsynchronized()
+    {
+        $this->assertTrue($this->header->isUnsynchronized());
+    }
+
+    public function testIsExtendedHeaderUsed()
+    {
+        $this->assertFalse($this->header->isExtendedHeaderUsed());
+    }
+
+    public function testIsExperimentalSet()
+    {
+        $this->assertFalse($this->header->isExperimentalSet());
     }
 
     /**
