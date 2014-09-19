@@ -4,8 +4,56 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a5728bbe022a02e73a9b45c577e408d5",
+    "hash": "b3e3b8d89b731812e908091326c46e14",
     "packages": [
+        {
+            "name": "mdurrant/php-binary-reader",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mdurrant/php-binary-reader.git",
+                "reference": "a40e04c17a6e56e2e68c5490369e248452fae81e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mdurrant/php-binary-reader/zipball/a40e04c17a6e56e2e68c5490369e248452fae81e",
+                "reference": "a40e04c17a6e56e2e68c5490369e248452fae81e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PhpBinaryReader\\": [
+                        "src/",
+                        "test/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Durrant",
+                    "email": "mdurrant@gmail.com"
+                }
+            ],
+            "description": "Lightweight binary reader for PHP",
+            "time": "2014-08-22 19:28:55"
+        },
         {
             "name": "symfony/console",
             "version": "v2.5.4",
