@@ -41,6 +41,15 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Header', $this->header);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidMimeTypeConstruct()
+    {
+        $file = new File(__DIR__ . '/asset/plain_text.txt');
+        new Header($file);
+    }
+
     public function testGetIdentifier()
     {
         $this->assertSame('ID3', $this->header->getIdentifier());
@@ -81,12 +90,146 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->header->isExperimentalSet());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidMimeTypeConstruct()
+    public function testSetIdentifier()
     {
-        $file = new File(__DIR__ . '/asset/plain_text.txt');
-        new Header($file);
+        $this->header->setIdentifier('test');
+        $this->assertSame('test', $this->header->getIdentifier());
+    }
+
+    /**
+     * @dataProvider exceptionForOnlyStringProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Identifier must be a string
+     */
+    public function testSetIdentifierWithInvalidArgument($argument)
+    {
+        $this->header->setIdentifier($argument);
+    }
+
+    public function testSetVersion()
+    {
+        $this->header->setVersion(1);
+        $this->assertSame(1, $this->header->getVersion());
+    }
+
+    /**
+     * @dataProvider exceptionForOnlyIntegerProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Version must be an integer
+     */
+    public function testSetVersionWithInvalidArgument($argument)
+    {
+        $this->header->setVersion($argument);
+    }
+
+    public function testSetRevision()
+    {
+        $this->header->setRevision(2);
+        $this->assertSame(2, $this->header->getRevision());
+    }
+
+    /**
+     * @dataProvider exceptionForOnlyIntegerProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Revision must be an integer
+     */
+    public function testSetRevisionWithInvalidArgument($argument)
+    {
+        $this->header->setRevision($argument);
+    }
+
+    /**
+     * @dataProvider flagsProvider
+     */
+    public function testSetFlags($flags, $unsynchronized, $extHeader, $experimental)
+    {
+        $this->header->setFlags($flags);
+        $this->assertSame($flags, $this->header->getFlags());
+        $this->assertSame($unsynchronized, $this->header->isUnsynchronized());
+        $this->assertSame($extHeader, $this->header->isExtendedHeaderUsed());
+        $this->assertSame($experimental, $this->header->isExperimentalSet());
+    }
+
+    /**
+     * @dataProvider exceptionForOnlyIntegerProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Flags must be an integer
+     */
+    public function testSetFlagsWithInvalidArgument($argument)
+    {
+        $this->header->setFlags($argument);
+    }
+
+    /**
+     * @return array
+     */
+    public function flagsProvider()
+    {
+        return [
+            'no flags'                              =>  [0x00, false, false, false],
+            'only unsynchronization'                =>  [0x80, true, false, false],
+            'only extended header'                  =>  [0x40, false, true, false],
+            'only experimental'                     =>  [0x20, false, false, true],
+            'unsynchronization and extended header' =>  [0xc0, true, true, false],
+            'unsynchronization and experimental'    =>  [0xa0, true, false, true],
+            'experimental and extended header'      =>  [0x60, false, true, true],
+            'all'                                   =>  [0xe0, true, true, true],
+        ];
+    }
+
+    public function testSetSize()
+    {
+        $this->header->setSize(100);
+        $this->assertSame(100, $this->header->getSize());
+    }
+
+    /**
+     * @dataProvider exceptionForOnlyIntegerProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Size must be an integer
+     */
+    public function testSetSizeWithInvalidArgument($argument)
+    {
+        $this->header->setSize($argument);
+    }
+
+    /**
+     * @return array
+     */
+    public function exceptionForOnlyStringProvider()
+    {
+        $callback = function () {
+            return 1;
+        };
+        return [
+            'bool'      =>  [false],
+            'int'       =>  [1],
+            'float'     =>  [1.23],
+            'array'     =>  [[1,2,3]],
+            'object'    =>  [new \stdClass()],
+            'null'      =>  [null],
+            'resource'  =>  [fopen('php://memory', 'r')],
+            'callback'  =>  [$callback]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function exceptionForOnlyIntegerProvider()
+    {
+        $callback = function () {
+            return 1;
+        };
+        return [
+            'bool'      =>  [false],
+            'string'    =>  ['test'],
+            'float'     =>  [1.23],
+            'array'     =>  [[1,2,3]],
+            'object'    =>  [new \stdClass()],
+            'null'      =>  [null],
+            'resource'  =>  [fopen('php://memory', 'r')],
+            'callback'  =>  [$callback]
+        ];
     }
 }

@@ -60,6 +60,10 @@ class Header
      */
     public function setFlags($flags)
     {
+        if (!is_int($flags)) {
+            throw new \InvalidArgumentException('Flags must be an integer');
+        }
+
         $this->flags = $flags;
     }
 
@@ -76,6 +80,9 @@ class Header
      */
     public function setIdentifier($identifier)
     {
+        if (!is_string($identifier)) {
+            throw new \InvalidArgumentException('Identifier must be a string');
+        }
         $this->identifier = $identifier;
     }
 
@@ -92,6 +99,9 @@ class Header
      */
     public function setRevision($revision)
     {
+        if (!is_int($revision)) {
+            throw new \InvalidArgumentException('Revision must be an integer');
+        }
         $this->revision = $revision;
     }
 
@@ -108,6 +118,9 @@ class Header
      */
     public function setSize($size)
     {
+        if (!is_int($size)) {
+            throw new \InvalidArgumentException('Size must be an integer');
+        }
         $this->size = $size;
     }
 
@@ -124,6 +137,9 @@ class Header
      */
     public function setVersion($version)
     {
+        if (!is_int($version)) {
+            throw new \InvalidArgumentException('Version must be an integer');
+        }
         $this->version = $version;
     }
 
