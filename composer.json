@@ -2,7 +2,7 @@
     "name": "nakard/music_formats",
     "description": "Set of classes to handle reading and setting various music formats tags",
     "minimum-stability": "stable",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Arkadiusz Moskwa",
