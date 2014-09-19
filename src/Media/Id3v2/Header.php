@@ -209,4 +209,28 @@ class Header
         }
         $this->size = bindec($binaryString);
     }
+
+    /**
+     * @return bool
+     */
+    public function isUnsynchronized()
+    {
+        return (bool) ($this->flags & 0x80);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExtendedHeaderUsed()
+    {
+        return (bool) ($this->flags & 0x40);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExperimentalSet()
+    {
+        return (bool) ($this->flags & 0x20);
+    }
 }

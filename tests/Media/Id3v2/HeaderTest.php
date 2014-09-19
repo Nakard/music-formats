@@ -30,6 +30,9 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0x00, $header->getRevision());
         $this->assertSame(0x80, $header->getFlags());
         $this->assertSame(0x000b535, $header->getSize());
+        $this->assertTrue($header->isUnsynchronized());
+        $this->assertFalse($header->isExtendedHeaderUsed());
+        $this->assertFalse($header->isExperimentalSet());
     }
 
     /**
