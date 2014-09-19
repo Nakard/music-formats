@@ -11,20 +11,25 @@
 namespace Nakard\MusicFormats\Tests\Media\Id3v2;
 
 use Nakard\MusicFormats\Media\Id3v2\Header;
-use Nakard\MusicFormats\Tests\FileTestCase;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Class HeaderTest
  *
  * @package Nakard\MusicFormats\Tests\Media\Id3v2
  */
-class HeaderTest extends FileTestCase
+class HeaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {
-        $file = $this->getFileMock();
-        $file->expects($this->any())->method('getMimeType')->will($this->returnValue('audio/mpeg'));
-        $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Header', new Header($file));
+        $file = new File(__DIR__ . '/asset/tagtest.ID3v2.4.mp3');
+        $header = new Header($file);
+        $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Header', $header);
+        $this->assertSame('ID3', $header->getIdentifier());
+        $this->assertSame(0x04, $header->getVersion());
+        $this->assertSame(0x00, $header->getRevision());
+        $this->assertSame(0x80, $header->getFlags());
+        $this->assertSame(0x000b535, $header->getSize());
     }
 
     /**
@@ -32,8 +37,7 @@ class HeaderTest extends FileTestCase
      */
     public function testInvalidMimeTypeConstruct()
     {
-        $file = $this->getFileMock();
-        $file->expects($this->any())->method('getMimeType')->will($this->returnValue('text/plain'));
+        $file = new File(__DIR__ . '/asset/plain_text.txt');
         new Header($file);
     }
 }
