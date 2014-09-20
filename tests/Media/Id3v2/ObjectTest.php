@@ -13,7 +13,6 @@ namespace Nakard\MusicFormats\Tests\Media\Id3v2;
 use Nakard\MusicFormats\Media\Id3v2\Header;
 use Nakard\MusicFormats\Media\Id3v2\Object;
 use Symfony\Component\HttpFoundation\File\File;
-use PhpBinaryReader\BinaryReader;
 
 /**
  * Class ObjectTest
@@ -26,11 +25,6 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      * @var File
      */
     private $file;
-
-    /**
-     * @var BinaryReader
-     */
-    private $reader;
 
     /**
      * @var Object
