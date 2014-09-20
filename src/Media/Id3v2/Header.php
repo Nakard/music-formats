@@ -10,6 +10,7 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
+use Nakard\MusicFormats\Exception\NotImplementedException;
 use PhpBinaryReader\BinaryReader;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -164,6 +165,10 @@ class Header
         $this->readRevision();
         $this->readFlags();
         $this->readSize();
+
+        if ($this->isExtendedHeaderUsed()) {
+            throw new NotImplementedException('Files with extended header are not yet supported!');
+        }
     }
 
     /**
