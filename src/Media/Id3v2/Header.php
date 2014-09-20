@@ -254,4 +254,12 @@ class Header
     {
         return (bool) ($this->flags & 0x20);
     }
+
+    /**
+     * @return bool
+     */
+    public function isFooterSet()
+    {
+        return (bool) ($this->flags & 0x10);
+    }
 }

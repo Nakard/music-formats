@@ -141,13 +141,14 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider flagsProvider
      */
-    public function testSetFlags($flags, $unsynchronized, $extHeader, $experimental)
+    public function testSetFlags($flags, $unsynchronized, $extHeader, $experimental, $footer)
     {
         $this->header->setFlags($flags);
         $this->assertSame($flags, $this->header->getFlags());
         $this->assertSame($unsynchronized, $this->header->isUnsynchronized());
         $this->assertSame($extHeader, $this->header->isExtendedHeaderUsed());
         $this->assertSame($experimental, $this->header->isExperimentalSet());
+        $this->assertSame($footer, $this->header->isFooterSet());
     }
 
     /**
@@ -166,14 +167,21 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
     public function flagsProvider()
     {
         return [
-            'no flags'                              =>  [0x00, false, false, false],
-            'only unsynchronization'                =>  [0x80, true, false, false],
-            'only extended header'                  =>  [0x40, false, true, false],
-            'only experimental'                     =>  [0x20, false, false, true],
-            'unsynchronization and extended header' =>  [0xc0, true, true, false],
-            'unsynchronization and experimental'    =>  [0xa0, true, false, true],
-            'experimental and extended header'      =>  [0x60, false, true, true],
-            'all'                                   =>  [0xe0, true, true, true],
+            'no flags'                              =>  [0x00, false, false, false, false],
+            'only unsynchronization'                =>  [0x80, true, false, false, false],
+            'only extended header'                  =>  [0x40, false, true, false, false],
+            'only experimental'                     =>  [0x20, false, false, true, false],
+            'only footer'                           =>  [0x10, false, false, false, true],
+            'unsynchronization and extended header' =>  [0xc0, true, true, false, false],
+            'unsynchronization and experimental'    =>  [0xa0, true, false, true, false],
+            'unsynchronization and footer'          =>  [0x90, true, false, false, true],
+            'extended header and experimental'      =>  [0x60, false, true, true, false],
+            'extended header and footer'            =>  [0x50, false, true, false, true],
+            'experimental and footer'               =>  [0x30, false, false, true, true],
+            'unsynchro + header + experimental'     =>  [0xe0, true, true, true, false],
+            'unsynchro + header + footer'           =>  [0xd0, true, true, false, true],
+            'header + experimental + footer'        =>  [0x70, false, true, true, true],
+            'all'                                   =>  [0xf0, true, true, true, true],
         ];
     }
 
