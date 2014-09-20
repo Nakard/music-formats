@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b3e3b8d89b731812e908091326c46e14",
+    "hash": "f36abb0ff02a9ceb5c99ace7606df218",
     "packages": [
         {
             "name": "mdurrant/php-binary-reader",

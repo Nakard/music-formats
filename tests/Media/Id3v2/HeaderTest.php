@@ -11,6 +11,7 @@
 namespace Nakard\MusicFormats\Tests\Media\Id3v2;
 
 use Nakard\MusicFormats\Media\Id3v2\Header;
+use PhpBinaryReader\BinaryReader;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -33,7 +34,8 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->file = new File(__DIR__ . '/asset/tagtest.ID3v2.4.mp3');
-        $this->header = new Header($this->file);
+        $reader = new BinaryReader(fopen($this->file->getRealPath(), 'rb+'));
+        $this->header = new Header($this->file, $reader);
     }
 
     public function testConstruct()
@@ -42,12 +44,31 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @expectedException Nakard\MusicFormats\Exception\NotImplementedException
+     * @expectedExceptionMessage Files with extended header are not yet supported!
+     */
+    public function testConstructWithExtendedHeader()
+    {
+        $reader = $this->getMockBuilder('PhpBinaryReader\\BinaryReader')
+            ->setConstructorArgs([fopen($this->file->getRealPath(), 'rb+')])
+            ->setMethods(['readUInt8'])
+            ->getMock();
+
+        $reader->expects($this->any())
+            ->method('readUInt8')
+            ->will($this->onConsecutiveCalls(0x04, 0x00, 0x40));
+
+        new Header($this->file, $reader);
+    }
+
+    /**
      * @expectedException \InvalidArgumentException
      */
     public function testInvalidMimeTypeConstruct()
     {
         $file = new File(__DIR__ . '/asset/plain_text.txt');
-        new Header($file);
+        $reader = new BinaryReader(fopen($file->getRealPath(), 'rb+'));
+        new Header($file, $reader);
     }
 
     public function testGetIdentifier()

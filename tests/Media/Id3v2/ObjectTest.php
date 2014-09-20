@@ -13,6 +13,7 @@ namespace Nakard\MusicFormats\Tests\Media\Id3v2;
 use Nakard\MusicFormats\Media\Id3v2\Header;
 use Nakard\MusicFormats\Media\Id3v2\Object;
 use Symfony\Component\HttpFoundation\File\File;
+use PhpBinaryReader\BinaryReader;
 
 /**
  * Class ObjectTest
@@ -26,29 +27,43 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      */
     private $file;
 
+    /**
+     * @var BinaryReader
+     */
+    private $reader;
+
+    /**
+     * @var Object
+     */
+    private $object;
+
     protected function setUp()
     {
         $this->file = new File(__DIR__ . '/asset/tagtest.ID3v2.4.mp3');
+        $this->object = new Object($this->file);
     }
 
     public function testConstruct()
     {
-        $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Object', new Object($this->file));
+        $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Object', $this->object);
     }
 
     public function testGetHeader()
     {
-        $object = new Object($this->file);
-        $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Header', $object->getHeader());
+        $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Header', $this->object->getHeader());
     }
 
     public function testSetHeader()
     {
-        $object = new Object($this->file);
-        $header = new Header($this->file);
+        $header = new Header($this->file, $this->object->getReader());
         $header->setRevision(5);
-        $object->setHeader($header);
-        $this->assertSame($header, $object->getHeader());
+        $this->object->setHeader($header);
+        $this->assertSame($header, $this->object->getHeader());
+    }
+
+    public function testGetReader()
+    {
+        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->object->getReader());
     }
 
     /**

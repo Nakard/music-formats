@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\File\File;
  *
  * @package Nakard\MusicFormats\Media\Id3v2
  */
-class Header
+class Header implements BinaryReaderAwareInterface
 {
     const TAG_SIZE_BYTE_LENGTH = 4;
 
@@ -47,6 +47,34 @@ class Header
      * @var int
      */
     private $size;
+
+    /**
+     * @var BinaryReader
+     */
+    private $reader;
+
+    /**
+     * @param File $file
+     * @throws \InvalidArgumentException
+     */
+    public function __construct(File $file, BinaryReader $binaryReader)
+    {
+        if ('audio/mpeg' !== $file->getMimeType()) {
+            throw new \InvalidArgumentException($file->getFilename() . ' is not an MPEG file');
+        }
+
+        $this->setBinaryReader($binaryReader);
+
+        $this->readIdentifier();
+        $this->readVersion();
+        $this->readRevision();
+        $this->readFlags();
+        $this->readSize();
+
+        if ($this->isExtendedHeaderUsed()) {
+            throw new NotImplementedException('Files with extended header are not yet supported!');
+        }
+    }
 
     /**
      * @return int
@@ -145,41 +173,11 @@ class Header
     }
 
     /**
-     * @var BinaryReader
+     * @inheritdoc
      */
-    private $reader;
-
-    /**
-     * @param File $file
-     * @throws \InvalidArgumentException
-     */
-    public function __construct(File $file)
+    public function setBinaryReader(BinaryReader &$binaryReader)
     {
-        if ('audio/mpeg' !== $file->getMimeType()) {
-            throw new \InvalidArgumentException($file->getFilename() . ' is not an MPEG file');
-        }
-
-        $this->reader = $this->createBinaryReader($file);
-        $this->readIdentifier();
-        $this->readVersion();
-        $this->readRevision();
-        $this->readFlags();
-        $this->readSize();
-
-        if ($this->isExtendedHeaderUsed()) {
-            throw new NotImplementedException('Files with extended header are not yet supported!');
-        }
-    }
-
-    /**
-     * @param File $file
-     *
-     * @return BinaryReader
-     */
-    protected function createBinaryReader(File $file)
-    {
-        $handle = fopen($file->getRealPath(), 'rb+');
-        return new BinaryReader($handle);
+        $this->reader = $binaryReader;
     }
 
     /**
@@ -187,7 +185,7 @@ class Header
      */
     private function readIdentifier()
     {
-        $this->identifier = $this->reader->getStringReader()->read($this->reader, 3);
+        $this->identifier = $this->reader->readString(3);
     }
 
     /**
@@ -195,7 +193,7 @@ class Header
      */
     private function readVersion()
     {
-        $this->version = $this->reader->getInt8Reader()->read($this->reader, 1);
+        $this->version = $this->reader->readUInt8();
     }
 
     /**
@@ -203,7 +201,7 @@ class Header
      */
     private function readRevision()
     {
-        $this->revision = $this->reader->getInt8Reader()->read($this->reader, 1);
+        $this->revision = $this->reader->readUInt8();
     }
 
     /**
@@ -211,7 +209,7 @@ class Header
      */
     private function readFlags()
     {
-        $this->flags = $this->reader->getInt8Reader()->read($this->reader, 1);
+        $this->flags = $this->reader->readUInt8();
     }
 
     /**
@@ -222,7 +220,7 @@ class Header
         $binaryString = '';
         for ($i = 0; $i < self::TAG_SIZE_BYTE_LENGTH; $i++) {
             $binaryString .= str_pad(
-                decbin($this->reader->getInt8Reader()->read($this->reader, 1)),
+                decbin($this->reader->readUInt8()),
                 7,
                 '0',
                 STR_PAD_LEFT
