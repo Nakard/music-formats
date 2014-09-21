@@ -10,7 +10,7 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame;
 
-use Nakard\MusicFormats\Media\Id3v2\BinaryReaderAwareInterface;
+use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
 use PhpBinaryReader\BinaryReader;
 
 /**
@@ -36,7 +36,7 @@ class FrameResolver implements BinaryReaderAwareInterface
     /**
      * @inheritdoc
      */
-    public function setBinaryReader(BinaryReader &$binaryReader)
+    public function setBinaryReader(BinaryReader $binaryReader)
     {
         $this->reader = $binaryReader;
     }

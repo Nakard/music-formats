@@ -19,13 +19,8 @@ use Symfony\Component\HttpFoundation\File\File;
  *
  * @package Nakard\MusicFormats\Tests\Media\Id3v2
  */
-class HeaderTest extends \PHPUnit_Framework_TestCase
+class HeaderTest extends AbstractTestCase
 {
-    /**
-     * @var File
-     */
-    private $file;
-
     /**
      * @var Header
      */
@@ -33,42 +28,13 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->file = new File(__DIR__ . '/asset/tagtest.ID3v2.4.mp3');
-        $reader = new BinaryReader(fopen($this->file->getRealPath(), 'rb+'));
-        $this->header = new Header($this->file, $reader);
+        parent::setUp();
+        $this->header = new Header($this->binaryReader);
     }
 
     public function testConstruct()
     {
         $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Header', $this->header);
-    }
-
-    /**
-     * @expectedException Nakard\MusicFormats\Exception\NotImplementedException
-     * @expectedExceptionMessage Files with extended header are not yet supported!
-     */
-    public function testConstructWithExtendedHeader()
-    {
-        $reader = $this->getMockBuilder('PhpBinaryReader\\BinaryReader')
-            ->setConstructorArgs([fopen($this->file->getRealPath(), 'rb+')])
-            ->setMethods(['readUInt8'])
-            ->getMock();
-
-        $reader->expects($this->any())
-            ->method('readUInt8')
-            ->will($this->onConsecutiveCalls(0x04, 0x00, 0x40));
-
-        new Header($this->file, $reader);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidMimeTypeConstruct()
-    {
-        $file = new File(__DIR__ . '/asset/plain_text.txt');
-        $reader = new BinaryReader(fopen($file->getRealPath(), 'rb+'));
-        new Header($file, $reader);
     }
 
     public function testGetIdentifier()
@@ -78,7 +44,7 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetVersion()
     {
-        $this->assertSame(0x04, $this->header->getVersion());
+        $this->assertSame(0x00, $this->header->getVersion());
     }
 
     public function testGetRevision()
@@ -88,17 +54,17 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetFlags()
     {
-        $this->assertSame(0x80, $this->header->getFlags());
+        $this->assertSame(0x00, $this->header->getFlags());
     }
 
     public function testGetSize()
     {
-        $this->assertSame(0x000b535, $this->header->getSize());
+        $this->assertSame(0x0000000, $this->header->getSize());
     }
 
     public function testIsUnsynchronized()
     {
-        $this->assertTrue($this->header->isUnsynchronized());
+        $this->assertFalse($this->header->isUnsynchronized());
     }
 
     public function testIsExtendedHeaderUsed()

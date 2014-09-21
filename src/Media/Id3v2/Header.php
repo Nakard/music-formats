@@ -11,7 +11,6 @@
 namespace Nakard\MusicFormats\Media\Id3v2;
 
 use PhpBinaryReader\BinaryReader;
-use Symfony\Component\HttpFoundation\File\File;
 use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
 
 /**
@@ -44,16 +43,16 @@ class Header implements BinaryReaderAwareInterface
     private $flags;
 
     /**
-     * @param File $file
-     * @throws \InvalidArgumentException
+     * @param BinaryReader $binaryReader
      */
-    public function __construct(BinaryReader &$binaryReader)
+    public function __construct(BinaryReader $binaryReader)
     {
         $this->setBinaryReader($binaryReader);
         $this->identifier = 'ID3';
         $this->version = 0;
         $this->revision = 0;
         $this->flags = 0;
+        $this->size = 0;
     }
 
     /**
@@ -65,7 +64,8 @@ class Header implements BinaryReaderAwareInterface
     }
 
     /**
-     * @param int $flags
+     * @param $flags
+     * @throws \InvalidArgumentException
      */
     public function setFlags($flags)
     {
@@ -86,6 +86,7 @@ class Header implements BinaryReaderAwareInterface
 
     /**
      * @param string $identifier
+     * @throws \InvalidArgumentException
      */
     public function setIdentifier($identifier)
     {
@@ -105,6 +106,7 @@ class Header implements BinaryReaderAwareInterface
 
     /**
      * @param int $revision
+     * @throws \InvalidArgumentException
      */
     public function setRevision($revision)
     {
@@ -124,6 +126,7 @@ class Header implements BinaryReaderAwareInterface
 
     /**
      * @param int $size
+     * @throws \InvalidArgumentException
      */
     public function setSize($size)
     {
@@ -143,6 +146,7 @@ class Header implements BinaryReaderAwareInterface
 
     /**
      * @param int $version
+     * @throws \InvalidArgumentException
      */
     public function setVersion($version)
     {
@@ -155,7 +159,7 @@ class Header implements BinaryReaderAwareInterface
     /**
      * @inheritdoc
      */
-    public function setBinaryReader(BinaryReader &$binaryReader)
+    public function setBinaryReader(BinaryReader $binaryReader)
     {
         $this->binaryReader = $binaryReader;
     }

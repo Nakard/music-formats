@@ -24,5 +24,5 @@ interface BinaryReaderAwareInterface
      *
      * @return void
      */
-    public function setBinaryReader(BinaryReader &$binaryReader);
+    public function setBinaryReader(BinaryReader $binaryReader);
 } 

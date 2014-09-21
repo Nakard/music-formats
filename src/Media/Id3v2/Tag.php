@@ -1,6 +1,6 @@
 <?php
 /**
- * Object.php
+ * Tag.php
  *
  * Creation date: 2014-09-19
  * Creation time: 20:25
@@ -19,11 +19,11 @@ use Nakard\MusicFormats\Media\Id3v2\Frame\FrameResolver;
 use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
 
 /**
- * Class Object
+ * Class Tag
  *
  * @package  Nakard\Media\Id3v2
  */
-class Object implements BinaryReaderAwareInterface
+class Tag implements BinaryReaderAwareInterface
 {
     use BinaryTrait;
 
@@ -50,7 +50,7 @@ class Object implements BinaryReaderAwareInterface
     /**
      * @param File $file
      */
-    public function __construct(BinaryReader &$binaryReader)
+    public function __construct(BinaryReader $binaryReader)
     {
         $this->setBinaryReader($binaryReader);
         $this->header = new Header($this->getBinaryReader());
@@ -94,9 +94,9 @@ class Object implements BinaryReaderAwareInterface
     /**
      * @inheritdoc
      */
-    public function setBinaryReader(BinaryReader &$binaryReader)
+    public function setBinaryReader(BinaryReader $binaryReader)
     {
-        $this->reader = $binaryReader;
+        $this->binaryReader = $binaryReader;
     }
 
     /**
@@ -108,7 +108,7 @@ class Object implements BinaryReaderAwareInterface
     }
 
     /**
-     * @return AbstractFrame[]
+     * @return ArrayCollection
      */
     public function getFrames()
     {

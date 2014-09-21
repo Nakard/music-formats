@@ -10,7 +10,6 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
-use Nakard\MusicFormats\Reader\BinaryTrait;
 use PhpBinaryReader\BinaryReader;
 use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
 
@@ -22,12 +21,7 @@ use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
  */
 class ExtendedHeader implements BinaryReaderAwareInterface
 {
-    use BinaryTrait;
-
-    /**
-     * @var int
-     */
-    private $size;
+    use Size28BitTrait;
 
     /**
      * @var int
@@ -42,7 +36,7 @@ class ExtendedHeader implements BinaryReaderAwareInterface
     /**
      * @param BinaryReader $binaryReader
      */
-    public function __construct(BinaryReader &$binaryReader)
+    public function __construct(BinaryReader $binaryReader)
     {
         $this->setBinaryReader($binaryReader);
         $this->size = 0;
@@ -53,7 +47,7 @@ class ExtendedHeader implements BinaryReaderAwareInterface
     /**
      * @param BinaryReader $binaryReader
      */
-    public function setBinaryReader(BinaryReader &$binaryReader)
+    public function setBinaryReader(BinaryReader $binaryReader)
     {
         $this->binaryReader = $binaryReader;
     }

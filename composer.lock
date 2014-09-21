@@ -713,7 +713,7 @@
                     "role": "lead"
                 }
             ],
-            "description": "Mock Object library for PHPUnit",
+            "description": "Mock Tag library for PHPUnit",
             "homepage": "https://github.com/sebastianbergmann/phpunit-mock-objects/",
             "keywords": [
                 "mock",
