@@ -15,7 +15,7 @@ use Nakard\MusicFormats\Reader\BinaryTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use PhpBinaryReader\BinaryReader;
 use Nakard\MusicFormats\Media\Id3v2\Frame\AbstractFrame;
-use Nakard\MusicFormats\Media\Id3v2\Frame\FrameResolver;
+use Nakard\MusicFormats\Media\Id3v2\Frame\Resolver;
 use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
 
 /**
@@ -43,9 +43,9 @@ class Tag implements BinaryReaderAwareInterface
     private $frames;
 
     /**
-     * @var FrameResolver
+     * @var Resolver
      */
-    private $frameResolver;
+    private $resolver;
 
     /**
      * @param File $file
@@ -55,7 +55,7 @@ class Tag implements BinaryReaderAwareInterface
         $this->setBinaryReader($binaryReader);
         $this->header = new Header($this->getBinaryReader());
         $this->extendedHeader = new ExtendedHeader($this->getBinaryReader());
-        $this->frameResolver = new FrameResolver($this->getBinaryReader());
+        $this->resolver = new Resolver($this->getBinaryReader());
         $this->frames = new ArrayCollection();
     }
 
@@ -113,5 +113,21 @@ class Tag implements BinaryReaderAwareInterface
     public function getFrames()
     {
         return $this->frames;
+    }
+
+    /**
+     * @return Resolver
+     */
+    public function getResolver()
+    {
+        return $this->resolver;
+    }
+
+    /**
+     * @param Resolver $resolver
+     */
+    public function setResolver(Resolver $resolver)
+    {
+        $this->resolver = $resolver;
     }
 }

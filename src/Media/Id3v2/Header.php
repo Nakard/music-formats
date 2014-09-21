@@ -165,38 +165,6 @@ class Header implements BinaryReaderAwareInterface
     }
 
     /**
-     * @return void
-     */
-    private function readIdentifier()
-    {
-        $this->identifier = $this->binaryReader->readString(3);
-    }
-
-    /**
-     * @return void
-     */
-    private function readVersion()
-    {
-        $this->version = $this->binaryReader->readUInt8();
-    }
-
-    /**
-     * @return void
-     */
-    private function readRevision()
-    {
-        $this->revision = $this->binaryReader->readUInt8();
-    }
-
-    /**
-     * @return void
-     */
-    private function readFlags()
-    {
-        $this->flags = $this->binaryReader->readUInt8();
-    }
-
-    /**
      * @return bool
      */
     public function isUnsynchronized()

@@ -1,6 +1,6 @@
 <?php
 /**
- * FrameResolver.php
+ * Resolver.php
  *
  * Creation date: 2014-09-20
  * Creation time: 13:43
@@ -14,11 +14,11 @@ use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
 use PhpBinaryReader\BinaryReader;
 
 /**
- * Class FrameResolver
+ * Class Resolver
  *
  * @package Nakard\MusicFormats\Media\Id3v2\Frame
  */
-class FrameResolver implements BinaryReaderAwareInterface
+class Resolver implements BinaryReaderAwareInterface
 {
     /**
      * @var BinaryReader

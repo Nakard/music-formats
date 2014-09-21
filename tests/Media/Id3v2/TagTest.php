@@ -11,6 +11,7 @@
 namespace Nakard\MusicFormats\Tests\Media\Id3v2;
 
 use Nakard\MusicFormats\Media\Id3v2\ExtendedHeader;
+use Nakard\MusicFormats\Media\Id3v2\Frame\Resolver;
 use Nakard\MusicFormats\Media\Id3v2\Frame\UnknownFrame;
 use Nakard\MusicFormats\Media\Id3v2\Header;
 use Nakard\MusicFormats\Media\Id3v2\Tag;
@@ -100,5 +101,25 @@ class TagTest extends AbstractTestCase
             'Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\AbstractFrame',
             $this->tag->getFrames()->get(0)
         );
+    }
+
+    public function testGetResolver()
+    {
+        $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Resolver', $this->tag->getResolver());
+    }
+
+    public function testSetResolver()
+    {
+        $resolver = new Resolver($this->binaryReader);
+        $this->tag->setResolver($resolver);
+        $this->assertSame($resolver, $this->tag->getResolver());
+    }
+
+    /**
+     * @expectedException \ErrorException
+     */
+    public function testSetResolverWithInvalidArgument()
+    {
+        $this->tag->setResolver($this->tag);
     }
 }
