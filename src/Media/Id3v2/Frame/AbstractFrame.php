@@ -24,9 +24,9 @@ abstract class AbstractFrame implements BinaryReaderAwareInterface
     use Size28BitTrait;
 
     /**
-     * @var int
+     * @var string
      */
-    private $id;
+    private $identifier;
 
     /**
      * @var int
@@ -40,12 +40,11 @@ abstract class AbstractFrame implements BinaryReaderAwareInterface
 
     /**
      * @param BinaryReader  $reader
-     * @param string        $identifier
      */
-    public function __construct(BinaryReader $reader, $identifier)
+    public function __construct(BinaryReader $reader)
     {
         $this->setBinaryReader($reader);
-        $this->setId($identifier);
+        $this->identifier = '';
         $this->content = '';
         $this->size = 0;
         $this->flags = 0;
@@ -64,23 +63,29 @@ abstract class AbstractFrame implements BinaryReaderAwareInterface
      */
     public function setFlags($flags)
     {
+        if (!is_int($flags)) {
+            throw new \InvalidArgumentException('Flags must be an integer');
+        }
         $this->flags = $flags;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId()
+    public function getIdentifier()
     {
-        return $this->id;
+        return $this->identifier;
     }
 
     /**
-     * @param int $id
+     * @param string $id
      */
-    public function setId($id)
+    public function setIdentifier($id)
     {
-        $this->id = $id;
+        if (!is_string($id)) {
+            throw new \InvalidArgumentException('Identifier must be a string');
+        }
+        $this->identifier = $id;
     }
 
     /**
@@ -96,7 +101,29 @@ abstract class AbstractFrame implements BinaryReaderAwareInterface
      */
     public function setSize($size)
     {
+        if (!is_int($size)) {
+            throw new \InvalidArgumentException('Size must be an integer');
+        }
         $this->size = $size;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string $content
+     */
+    public function setContent($content)
+    {
+        if (!is_string($content)) {
+            throw new \InvalidArgumentException('Content must be a string');
+        }
+        $this->content = $content;
     }
 
     /**
@@ -105,13 +132,5 @@ abstract class AbstractFrame implements BinaryReaderAwareInterface
     public function setBinaryReader(BinaryReader $binaryReader)
     {
         $this->binaryReader = $binaryReader;
-    }
-
-    /**
-     * @return void
-     */
-    private function readFlags()
-    {
-        $this->setFlags($this->binaryReader->readUInt16());
     }
 }
