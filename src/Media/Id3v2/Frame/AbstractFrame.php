@@ -39,11 +39,10 @@ abstract class AbstractFrame implements BinaryReaderAwareInterface
     private $content;
 
     /**
-     * @param BinaryReader  $reader
+     * Constructs new frame
      */
-    public function __construct(BinaryReader $reader)
+    public function __construct()
     {
-        $this->setBinaryReader($reader);
         $this->identifier = '';
         $this->content = '';
         $this->size = 0;

@@ -50,11 +50,10 @@ class Tag implements BinaryReaderAwareInterface
     /**
      * @param File $file
      */
-    public function __construct(BinaryReader $binaryReader)
+    public function __construct()
     {
-        $this->setBinaryReader($binaryReader);
-        $this->header = new Header($this->getBinaryReader());
-        $this->extendedHeader = new ExtendedHeader($this->getBinaryReader());
+        $this->header = new Header();
+        $this->extendedHeader = new ExtendedHeader();
         $this->resolver = new Resolver($this->getBinaryReader());
         $this->frames = new ArrayCollection();
     }

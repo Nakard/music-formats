@@ -43,11 +43,10 @@ class Header implements BinaryReaderAwareInterface
     private $flags;
 
     /**
-     * @param BinaryReader $binaryReader
+     * Constructs new ID3v2 header
      */
-    public function __construct(BinaryReader $binaryReader)
+    public function __construct()
     {
-        $this->setBinaryReader($binaryReader);
         $this->identifier = 'ID3';
         $this->version = 0;
         $this->revision = 0;

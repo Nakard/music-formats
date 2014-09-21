@@ -32,7 +32,7 @@ class TagTest extends AbstractTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->tag = new Tag($this->binaryReader);
+        $this->tag = new Tag();
     }
 
     public function testConstruct()
@@ -63,15 +63,13 @@ class TagTest extends AbstractTestCase
 
     public function testGetBinaryReader()
     {
-        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->tag->getBinaryReader());
-        $this->assertSame($this->binaryReader, $this->tag->getBinaryReader());
+        $this->assertNull($this->tag->getBinaryReader());
     }
 
     public function testSetBinaryReader()
     {
-        $reader = new BinaryReader(fopen('php://memory', 'rb+'));
-        $this->tag->setBinaryReader($reader);
-        $this->assertSame($reader, $this->tag->getBinaryReader());
+        $this->tag->setBinaryReader($this->binaryReader);
+        $this->assertSame($this->binaryReader, $this->tag->getBinaryReader());
         $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->tag->getBinaryReader());
     }
 

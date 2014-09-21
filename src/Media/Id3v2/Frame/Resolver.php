@@ -27,14 +27,6 @@ class Resolver implements BinaryReaderAwareInterface
     private $reader;
 
     /**
-     * @param BinaryReader $binaryReader
-     */
-    public function __construct(BinaryReader $binaryReader)
-    {
-        $this->setBinaryReader($binaryReader);
-    }
-
-    /**
      * @inheritdoc
      */
     public function setBinaryReader(BinaryReader $binaryReader)

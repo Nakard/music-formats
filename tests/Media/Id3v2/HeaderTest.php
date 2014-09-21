@@ -189,15 +189,13 @@ class HeaderTest extends AbstractTestCase
 
     public function testGetBinaryReader()
     {
-        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->header->getBinaryReader());
-        $this->assertSame($this->binaryReader, $this->header->getBinaryReader());
+        $this->assertNull($this->header->getBinaryReader());
     }
 
     public function testSetBinaryReader()
     {
-        $reader = new BinaryReader(fopen('php://memory', 'rb+'));
-        $this->header->setBinaryReader($reader);
-        $this->assertSame($reader, $this->header->getBinaryReader());
+        $this->header->setBinaryReader($this->binaryReader);
+        $this->assertSame($this->binaryReader, $this->header->getBinaryReader());
         $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->header->getBinaryReader());
     }
 

@@ -34,11 +34,10 @@ class ExtendedHeader implements BinaryReaderAwareInterface
     private $paddingSize;
 
     /**
-     * @param BinaryReader $binaryReader
+     * Constructs new extended header
      */
-    public function __construct(BinaryReader $binaryReader)
+    public function __construct()
     {
-        $this->setBinaryReader($binaryReader);
         $this->size = 0;
         $this->flags = 0;
         $this->paddingSize = 0;
