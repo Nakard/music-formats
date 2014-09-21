@@ -101,6 +101,7 @@ class ExtendedHeaderTest extends AbstractTestCase
 
     public function testGetBinaryReader()
     {
+        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->extendedHeader->getBinaryReader());
         $this->assertSame($this->binaryReader, $this->extendedHeader->getBinaryReader());
     }
 

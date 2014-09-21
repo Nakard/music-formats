@@ -12,9 +12,10 @@ namespace Nakard\MusicFormats\Tests\Media\Id3v2;
 
 use Nakard\MusicFormats\Media\Id3v2\ExtendedHeader;
 use Nakard\MusicFormats\Media\Id3v2\Frame\Resolver;
-use Nakard\MusicFormats\Media\Id3v2\Frame\UnknownFrame;
+use Nakard\MusicFormats\Media\Id3v2\Frame\Unknown;
 use Nakard\MusicFormats\Media\Id3v2\Header;
 use Nakard\MusicFormats\Media\Id3v2\Tag;
+use PhpBinaryReader\BinaryReader;
 
 /**
  * Class ObjectTest
@@ -60,9 +61,26 @@ class TagTest extends AbstractTestCase
         $this->tag->setHeader($this->tag);
     }
 
-    public function testGetReader()
+    public function testGetBinaryReader()
     {
         $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->tag->getBinaryReader());
+        $this->assertSame($this->binaryReader, $this->tag->getBinaryReader());
+    }
+
+    public function testSetBinaryReader()
+    {
+        $reader = new BinaryReader(fopen('php://memory', 'rb+'));
+        $this->tag->setBinaryReader($reader);
+        $this->assertSame($reader, $this->tag->getBinaryReader());
+        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->tag->getBinaryReader());
+    }
+
+    /**
+     * @expectedException \ErrorException
+     */
+    public function testSetBinaryReaderWithInvalidArgument()
+    {
+        $this->tag->setBinaryReader($this->tag);
     }
 
     public function testGetExtendedHeader()
@@ -94,7 +112,7 @@ class TagTest extends AbstractTestCase
 
     public function testAddFrame()
     {
-        $frame = new UnknownFrame($this->binaryReader, 'TXXX');
+        $frame = new Unknown($this->binaryReader, 'TXXX');
         $this->tag->addFrame($frame);
         $this->assertNotEmpty($this->tag->getFrames());
         $this->assertInstanceOf(

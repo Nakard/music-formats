@@ -12,7 +12,6 @@ namespace Nakard\MusicFormats\Tests\Media\Id3v2;
 
 use Nakard\MusicFormats\Media\Id3v2\Header;
 use PhpBinaryReader\BinaryReader;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Class HeaderTest
@@ -186,5 +185,27 @@ class HeaderTest extends AbstractTestCase
     public function testSetSizeWithInvalidArgument($argument)
     {
         $this->header->setSize($argument);
+    }
+
+    public function testGetBinaryReader()
+    {
+        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->header->getBinaryReader());
+        $this->assertSame($this->binaryReader, $this->header->getBinaryReader());
+    }
+
+    public function testSetBinaryReader()
+    {
+        $reader = new BinaryReader(fopen('php://memory', 'rb+'));
+        $this->header->setBinaryReader($reader);
+        $this->assertSame($reader, $this->header->getBinaryReader());
+        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->header->getBinaryReader());
+    }
+
+    /**
+     * @expectedException \ErrorException
+     */
+    public function testSetBinaryReaderWithInvalidArgument()
+    {
+        $this->header->setBinaryReader($this->header);
     }
 }

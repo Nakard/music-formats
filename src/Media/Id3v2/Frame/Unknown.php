@@ -1,6 +1,6 @@
 <?php
 /**
- * UnknownFrame.php
+ * Unknown.php
  *
  * Creation date: 2014-09-20
  * Creation time: 13:48
@@ -11,11 +11,11 @@
 namespace Nakard\MusicFormats\Media\Id3v2\Frame;
 
 /**
- * Class UnknownFrame
+ * Class Unknown
  *
  * @package Nakard\MusicFormats\Media\Id3v2\Frame
  */
-class UnknownFrame extends AbstractFrame
+class Unknown extends AbstractFrame
 {
 
 } 
