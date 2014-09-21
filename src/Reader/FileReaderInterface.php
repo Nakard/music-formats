@@ -10,8 +10,6 @@
 
 namespace Nakard\MusicFormats\Reader;
 
-use Symfony\Component\HttpFoundation\File\File;
-
 /**
  * Interface FileReaderInterface
  *
@@ -21,10 +19,8 @@ interface FileReaderInterface
 {
     /**
      * Reads appropriate information from file
-     *
-     * @param File $file
-     *
-     * @return mixed
+     **
+     * @return void
      */
     public function read();
 } 
