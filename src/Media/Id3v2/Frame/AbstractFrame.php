@@ -10,13 +10,20 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame;
 
+use Nakard\MusicFormats\Media\Id3v2\BinaryReaderAwareInterface;
+use Nakard\MusicFormats\Media\Id3v2\Size28BitTrait;
+use PhpBinaryReader\BinaryReader;
+use SebastianBergmann\Exporter\Exception;
+
 /**
  * Class AbstractFrame
  *
  * @package Nakard\MusicFormats\Media\Id3v2\Frame
  */
-abstract class AbstractFrame
+abstract class AbstractFrame implements BinaryReaderAwareInterface
 {
+    use Size28BitTrait;
+
     /**
      * @var int
      */
@@ -25,12 +32,27 @@ abstract class AbstractFrame
     /**
      * @var int
      */
-    private $size;
+    private $flags;
 
     /**
-     * @var int
+     * @var string
      */
-    private $flags;
+    private $content;
+
+    /**
+     * @param BinaryReader  $reader
+     * @param string        $identifier
+     */
+    public function __construct(BinaryReader $reader, $identifier)
+    {
+        $this->setBinaryReader($reader);
+        $this->setId($identifier);
+        $this->readSize();
+        $this->readFlags();
+        if ($this->getSize()) {
+            $this->content = $this->reader->readString($this->getSize());
+        }
+    }
 
     /**
      * @return int
@@ -78,5 +100,21 @@ abstract class AbstractFrame
     public function setSize($size)
     {
         $this->size = $size;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setBinaryReader(BinaryReader &$binaryReader)
+    {
+        $this->reader = $binaryReader;
+    }
+
+    /**
+     * @return void
+     */
+    private function readFlags()
+    {
+        $this->setFlags($this->reader->readUInt16());
     }
 }

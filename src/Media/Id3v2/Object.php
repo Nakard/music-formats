@@ -13,6 +13,8 @@ namespace Nakard\MusicFormats\Media\Id3v2;
 use Symfony\Component\HttpFoundation\File\File;
 use PhpBinaryReader\BinaryReader;
 use PhpBinaryReader\Endian;
+use Nakard\MusicFormats\Media\Id3v2\Frame\AbstractFrame;
+use Nakard\MusicFormats\Media\Id3v2\Frame\FrameResolver;
 
 /**
  * Class Object
@@ -32,6 +34,16 @@ class Object
     private $reader;
 
     /**
+     * @var AbstractFrame[]
+     */
+    private $frames;
+
+    /**
+     * @var FrameResolver
+     */
+    private $frameResolver;
+
+    /**
      * @param File $file
      */
     public function __construct(File $file)
@@ -42,6 +54,7 @@ class Object
         $this->createBinaryReader($file);
 
         $this->header = new Header($file, $this->reader);
+        $this->frameResolver = new FrameResolver($this->reader);
     }
 
     /**
@@ -77,5 +90,21 @@ class Object
     {
         $handle = fopen($file->getRealPath(), 'rb+');
         $this->reader = new BinaryReader($handle, Endian::ENDIAN_BIG);
+    }
+
+    /**
+     * @param AbstractFrame $frame
+     */
+    public function addFrame(AbstractFrame $frame)
+    {
+        $this->frames[] = $frame;
+    }
+
+    /**
+     * @return AbstractFrame[]
+     */
+    public function getFrames()
+    {
+        return $this->frames;
     }
 }

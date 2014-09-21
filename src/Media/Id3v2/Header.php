@@ -21,8 +21,7 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Header implements BinaryReaderAwareInterface
 {
-    const TAG_SIZE_BYTE_LENGTH = 4;
-
+    use Size28BitTrait;
     /**
      * @var string
      */
@@ -42,16 +41,6 @@ class Header implements BinaryReaderAwareInterface
      * @var int
      */
     private $flags;
-
-    /**
-     * @var int
-     */
-    private $size;
-
-    /**
-     * @var BinaryReader
-     */
-    private $reader;
 
     /**
      * @param File $file
@@ -210,23 +199,6 @@ class Header implements BinaryReaderAwareInterface
     private function readFlags()
     {
         $this->flags = $this->reader->readUInt8();
-    }
-
-    /**
-     * @return void
-     */
-    private function readSize()
-    {
-        $binaryString = '';
-        for ($i = 0; $i < self::TAG_SIZE_BYTE_LENGTH; $i++) {
-            $binaryString .= str_pad(
-                decbin($this->reader->readUInt8()),
-                7,
-                '0',
-                STR_PAD_LEFT
-            );
-        }
-        $this->size = bindec($binaryString);
     }
 
     /**
