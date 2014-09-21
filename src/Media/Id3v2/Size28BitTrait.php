@@ -10,7 +10,7 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
-use PhpBinaryReader\BinaryReader;
+use Nakard\MusicFormats\Reader\BinaryTrait;
 
 /**
  * Class Size28BitTrait
@@ -19,10 +19,7 @@ use PhpBinaryReader\BinaryReader;
  */
 trait Size28BitTrait
 {
-    /**
-     * @var BinaryReader
-     */
-    private $reader;
+    use BinaryTrait;
 
     /**
      * @var int
@@ -44,7 +41,7 @@ trait Size28BitTrait
         $binaryString = '';
         for ($i = 0; $i < $this->tagSizeByteLength; $i++) {
             $binaryString .= str_pad(
-                decbin($this->reader->readUInt8()),
+                decbin($this->binaryReader->readUInt8()),
                 7,
                 '0',
                 STR_PAD_LEFT

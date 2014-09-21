@@ -10,28 +10,32 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Nakard\MusicFormats\Reader\BinaryTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use PhpBinaryReader\BinaryReader;
-use PhpBinaryReader\Endian;
 use Nakard\MusicFormats\Media\Id3v2\Frame\AbstractFrame;
 use Nakard\MusicFormats\Media\Id3v2\Frame\FrameResolver;
+use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
 
 /**
  * Class Object
  *
  * @package  Nakard\Media\Id3v2
  */
-class Object
+class Object implements BinaryReaderAwareInterface
 {
+    use BinaryTrait;
+
     /**
      * @var Header
      */
     private $header;
 
     /**
-     * @var BinaryReader
+     * @var ExtendedHeader
      */
-    private $reader;
+    private $extendedHeader;
 
     /**
      * @var AbstractFrame[]
@@ -46,15 +50,13 @@ class Object
     /**
      * @param File $file
      */
-    public function __construct(File $file)
+    public function __construct(BinaryReader &$binaryReader)
     {
-        if ('audio/mpeg' !== $file->getMimeType()) {
-            throw new \InvalidArgumentException($file->getFilename() . ' is not an MPEG file');
-        }
-        $this->createBinaryReader($file);
-
-        $this->header = new Header($file, $this->reader);
-        $this->frameResolver = new FrameResolver($this->reader);
+        $this->setBinaryReader($binaryReader);
+        $this->header = new Header($this->getBinaryReader());
+        $this->extendedHeader = new ExtendedHeader($this->getBinaryReader());
+        $this->frameResolver = new FrameResolver($this->getBinaryReader());
+        $this->frames = new ArrayCollection();
     }
 
     /**
@@ -74,22 +76,27 @@ class Object
     }
 
     /**
-     * @return BinaryReader
+     * @param ExtendedHeader $extendedHeader
      */
-    public function getReader()
+    public function setExtendedHeader(ExtendedHeader $extendedHeader)
     {
-        return $this->reader;
+        $this->extendedHeader = $extendedHeader;
     }
 
     /**
-     * @param File $file
-     *
-     * @return BinaryReader
+     * @return ExtendedHeader
      */
-    private function createBinaryReader(File $file)
+    public function getExtendedHeader()
     {
-        $handle = fopen($file->getRealPath(), 'rb+');
-        $this->reader = new BinaryReader($handle, Endian::ENDIAN_BIG);
+        return $this->extendedHeader;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setBinaryReader(BinaryReader &$binaryReader)
+    {
+        $this->reader = $binaryReader;
     }
 
     /**

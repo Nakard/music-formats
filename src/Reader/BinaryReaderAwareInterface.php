@@ -8,14 +8,14 @@
  * @author Arkadiusz Moskwa <a.moskwa@gmail.com>
  */
 
-namespace Nakard\MusicFormats\Media\Id3v2;
+namespace Nakard\MusicFormats\Reader;
 
 use PhpBinaryReader\BinaryReader;
 
 /**
  * Interface BinaryReaderAwareInterface
  *
- * @package Nakard\MusicFormats\Media\Id3v2
+ * @package Nakard\MusicFormats\Reader
  */
 interface BinaryReaderAwareInterface
 {

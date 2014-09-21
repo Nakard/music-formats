@@ -221,44 +221,4 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->header->setSize($argument);
     }
-
-    /**
-     * @return array
-     */
-    public function exceptionForOnlyStringProvider()
-    {
-        $callback = function () {
-            return 1;
-        };
-        return [
-            'bool'      =>  [false],
-            'int'       =>  [1],
-            'float'     =>  [1.23],
-            'array'     =>  [[1,2,3]],
-            'object'    =>  [new \stdClass()],
-            'null'      =>  [null],
-            'resource'  =>  [fopen('php://memory', 'r')],
-            'callback'  =>  [$callback]
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function exceptionForOnlyIntegerProvider()
-    {
-        $callback = function () {
-            return 1;
-        };
-        return [
-            'bool'      =>  [false],
-            'string'    =>  ['test'],
-            'float'     =>  [1.23],
-            'array'     =>  [[1,2,3]],
-            'object'    =>  [new \stdClass()],
-            'null'      =>  [null],
-            'resource'  =>  [fopen('php://memory', 'r')],
-            'callback'  =>  [$callback]
-        ];
-    }
 }

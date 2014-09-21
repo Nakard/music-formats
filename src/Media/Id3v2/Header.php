@@ -10,9 +10,9 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
-use Nakard\MusicFormats\Exception\NotImplementedException;
 use PhpBinaryReader\BinaryReader;
 use Symfony\Component\HttpFoundation\File\File;
+use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
 
 /**
  * Class Header
@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\File\File;
 class Header implements BinaryReaderAwareInterface
 {
     use Size28BitTrait;
+
     /**
      * @var string
      */
@@ -46,23 +47,13 @@ class Header implements BinaryReaderAwareInterface
      * @param File $file
      * @throws \InvalidArgumentException
      */
-    public function __construct(File $file, BinaryReader $binaryReader)
+    public function __construct(BinaryReader &$binaryReader)
     {
-        if ('audio/mpeg' !== $file->getMimeType()) {
-            throw new \InvalidArgumentException($file->getFilename() . ' is not an MPEG file');
-        }
-
         $this->setBinaryReader($binaryReader);
-
-        $this->readIdentifier();
-        $this->readVersion();
-        $this->readRevision();
-        $this->readFlags();
-        $this->readSize();
-
-        if ($this->isExtendedHeaderUsed()) {
-            throw new NotImplementedException('Files with extended header are not yet supported!');
-        }
+        $this->identifier = 'ID3';
+        $this->version = 0;
+        $this->revision = 0;
+        $this->flags = 0;
     }
 
     /**
@@ -166,7 +157,7 @@ class Header implements BinaryReaderAwareInterface
      */
     public function setBinaryReader(BinaryReader &$binaryReader)
     {
-        $this->reader = $binaryReader;
+        $this->binaryReader = $binaryReader;
     }
 
     /**
@@ -174,7 +165,7 @@ class Header implements BinaryReaderAwareInterface
      */
     private function readIdentifier()
     {
-        $this->identifier = $this->reader->readString(3);
+        $this->identifier = $this->binaryReader->readString(3);
     }
 
     /**
@@ -182,7 +173,7 @@ class Header implements BinaryReaderAwareInterface
      */
     private function readVersion()
     {
-        $this->version = $this->reader->readUInt8();
+        $this->version = $this->binaryReader->readUInt8();
     }
 
     /**
@@ -190,7 +181,7 @@ class Header implements BinaryReaderAwareInterface
      */
     private function readRevision()
     {
-        $this->revision = $this->reader->readUInt8();
+        $this->revision = $this->binaryReader->readUInt8();
     }
 
     /**
@@ -198,7 +189,7 @@ class Header implements BinaryReaderAwareInterface
      */
     private function readFlags()
     {
-        $this->flags = $this->reader->readUInt8();
+        $this->flags = $this->binaryReader->readUInt8();
     }
 
     /**

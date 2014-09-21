@@ -34,7 +34,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->file = new File(__DIR__ . '/asset/tagtest.ID3v2.4.mp3');
-        $this->object = new Object($this->file);
+        $this->object = new Object();
     }
 
     public function testConstruct()
