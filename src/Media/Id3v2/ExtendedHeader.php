@@ -45,10 +45,13 @@ class ExtendedHeader implements BinaryReaderAwareInterface
 
     /**
      * @param BinaryReader $binaryReader
+     * @return ExtendedHeader
      */
     public function setBinaryReader(BinaryReader $binaryReader)
     {
         $this->binaryReader = $binaryReader;
+
+        return $this;
     }
 
     /**
@@ -61,6 +64,8 @@ class ExtendedHeader implements BinaryReaderAwareInterface
 
     /**
      * @param int $flags
+     *
+     * @return ExtendedHeader
      */
     public function setFlags($flags)
     {
@@ -68,6 +73,8 @@ class ExtendedHeader implements BinaryReaderAwareInterface
             throw new \InvalidArgumentException('Flags must be an integer');
         }
         $this->flags = $flags;
+
+        return $this;
     }
 
     /**
@@ -80,6 +87,7 @@ class ExtendedHeader implements BinaryReaderAwareInterface
 
     /**
      * @param int $paddingSize
+     * @return ExtendedHeader
      */
     public function setPaddingSize($paddingSize)
     {
@@ -87,6 +95,8 @@ class ExtendedHeader implements BinaryReaderAwareInterface
             throw new \InvalidArgumentException('Padding size must be an integer');
         }
         $this->paddingSize = $paddingSize;
+
+        return $this;
     }
 
     /**
@@ -99,6 +109,7 @@ class ExtendedHeader implements BinaryReaderAwareInterface
 
     /**
      * @param int $size
+     * @return ExtendedHeader
      */
     public function setSize($size)
     {
@@ -106,5 +117,7 @@ class ExtendedHeader implements BinaryReaderAwareInterface
             throw new \InvalidArgumentException('Size must be an integer');
         }
         $this->size = $size;
+
+        return $this;
     }
 }

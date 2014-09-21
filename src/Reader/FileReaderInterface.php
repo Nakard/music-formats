@@ -26,5 +26,5 @@ interface FileReaderInterface
      *
      * @return mixed
      */
-    public function read(File $file);
+    public function read();
 } 

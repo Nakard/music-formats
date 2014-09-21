@@ -12,6 +12,7 @@ namespace Nakard\MusicFormats\Media\Id3v2\Frame;
 
 use Nakard\MusicFormats\Media\Id3v2\Frame\Exception\InvalidIdentifierException;
 use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
+use Nakard\MusicFormats\Reader\BinaryTrait;
 use PhpBinaryReader\BinaryReader;
 
 /**
@@ -21,31 +22,26 @@ use PhpBinaryReader\BinaryReader;
  */
 class Resolver implements BinaryReaderAwareInterface
 {
-    /**
-     * @var BinaryReader
-     */
-    private $reader;
+    use BinaryTrait;
 
     /**
-     * @inheritdoc
+     * @param BinaryReader $binaryReader
+     *
+     * @return Resolver;
      */
     public function setBinaryReader(BinaryReader $binaryReader)
     {
-        $this->reader = $binaryReader;
-    }
+        $this->binaryReader = $binaryReader;
 
-    /**
-     * @return BinaryReader
-     */
-    public function getBinaryReader()
-    {
-        return $this->reader;
+        return $this;
     }
 
     /**
      * @param   string       $identifier
      *
      * @return  AbstractFrame
+     * @throws \InvalidArgumentException
+     * @throws InvalidIdentifierException
      */
     public function resolve($identifier)
     {

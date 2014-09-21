@@ -60,10 +60,14 @@ class Tag implements BinaryReaderAwareInterface
 
     /**
      * @param Header $header
+     *
+     * @return Tag
      */
     public function setHeader(Header $header)
     {
         $this->header = $header;
+
+        return $this;
     }
 
     /**
@@ -76,10 +80,14 @@ class Tag implements BinaryReaderAwareInterface
 
     /**
      * @param ExtendedHeader $extendedHeader
+     *
+     * @return Tag
      */
     public function setExtendedHeader(ExtendedHeader $extendedHeader)
     {
         $this->extendedHeader = $extendedHeader;
+
+        return $this;
     }
 
     /**
@@ -91,19 +99,27 @@ class Tag implements BinaryReaderAwareInterface
     }
 
     /**
-     * @inheritdoc
+     * @param BinaryReader $binaryReader
+     *
+     * @return Tag
      */
     public function setBinaryReader(BinaryReader $binaryReader)
     {
         $this->binaryReader = $binaryReader;
+
+        return $this;
     }
 
     /**
      * @param AbstractFrame $frame
+     *
+     * @return Tag
      */
     public function addFrame(AbstractFrame $frame)
     {
         $this->frames[] = $frame;
+
+        return $this;
     }
 
     /**
@@ -124,9 +140,13 @@ class Tag implements BinaryReaderAwareInterface
 
     /**
      * @param Resolver $resolver
+     *
+     * @return Tag
      */
     public function setResolver(Resolver $resolver)
     {
         $this->resolver = $resolver;
+
+        return $this;
     }
 }

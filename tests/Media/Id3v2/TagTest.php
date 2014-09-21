@@ -15,7 +15,6 @@ use Nakard\MusicFormats\Media\Id3v2\Frame\Resolver;
 use Nakard\MusicFormats\Media\Id3v2\Frame\Unknown;
 use Nakard\MusicFormats\Media\Id3v2\Header;
 use Nakard\MusicFormats\Media\Id3v2\Tag;
-use PhpBinaryReader\BinaryReader;
 
 /**
  * Class ObjectTest

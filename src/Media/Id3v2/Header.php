@@ -65,6 +65,7 @@ class Header implements BinaryReaderAwareInterface
     /**
      * @param $flags
      * @throws \InvalidArgumentException
+     * @return Header
      */
     public function setFlags($flags)
     {
@@ -73,6 +74,8 @@ class Header implements BinaryReaderAwareInterface
         }
 
         $this->flags = $flags;
+
+        return $this;
     }
 
     /**
@@ -86,6 +89,7 @@ class Header implements BinaryReaderAwareInterface
     /**
      * @param string $identifier
      * @throws \InvalidArgumentException
+     * @return Header
      */
     public function setIdentifier($identifier)
     {
@@ -93,6 +97,8 @@ class Header implements BinaryReaderAwareInterface
             throw new \InvalidArgumentException('Identifier must be a string');
         }
         $this->identifier = $identifier;
+
+        return $this;
     }
 
     /**
@@ -106,6 +112,7 @@ class Header implements BinaryReaderAwareInterface
     /**
      * @param int $revision
      * @throws \InvalidArgumentException
+     * @return Header
      */
     public function setRevision($revision)
     {
@@ -113,6 +120,8 @@ class Header implements BinaryReaderAwareInterface
             throw new \InvalidArgumentException('Revision must be an integer');
         }
         $this->revision = $revision;
+
+        return $this;
     }
 
     /**
@@ -126,6 +135,7 @@ class Header implements BinaryReaderAwareInterface
     /**
      * @param int $size
      * @throws \InvalidArgumentException
+     * @return Header
      */
     public function setSize($size)
     {
@@ -133,6 +143,8 @@ class Header implements BinaryReaderAwareInterface
             throw new \InvalidArgumentException('Size must be an integer');
         }
         $this->size = $size;
+
+        return $this;
     }
 
     /**
@@ -146,6 +158,7 @@ class Header implements BinaryReaderAwareInterface
     /**
      * @param int $version
      * @throws \InvalidArgumentException
+     * @return Header
      */
     public function setVersion($version)
     {
@@ -153,14 +166,20 @@ class Header implements BinaryReaderAwareInterface
             throw new \InvalidArgumentException('Version must be an integer');
         }
         $this->version = $version;
+
+        return $this;
     }
 
     /**
-     * @inheritdoc
+     * @param BinaryReader $binaryReader
+     *
+     * @return Header
      */
     public function setBinaryReader(BinaryReader $binaryReader)
     {
         $this->binaryReader = $binaryReader;
+
+        return $this;
     }
 
     /**
