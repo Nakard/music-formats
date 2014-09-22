@@ -46,7 +46,7 @@ class TagTest extends AbstractTestCase
 
     public function testSetHeader()
     {
-        $header = new Header($this->tag->getBinaryReader());
+        $header = new Header();
         $header->setRevision(5);
         $this->tag->setHeader($header);
         $this->assertSame($header, $this->tag->getHeader());
@@ -60,26 +60,6 @@ class TagTest extends AbstractTestCase
         $this->tag->setHeader($this->tag);
     }
 
-    public function testGetBinaryReader()
-    {
-        $this->assertNull($this->tag->getBinaryReader());
-    }
-
-    public function testSetBinaryReader()
-    {
-        $this->tag->setBinaryReader($this->binaryReader);
-        $this->assertSame($this->binaryReader, $this->tag->getBinaryReader());
-        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->tag->getBinaryReader());
-    }
-
-    /**
-     * @expectedException \ErrorException
-     */
-    public function testSetBinaryReaderWithInvalidArgument()
-    {
-        $this->tag->setBinaryReader($this->tag);
-    }
-
     public function testGetExtendedHeader()
     {
         $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\ExtendedHeader', $this->tag->getExtendedHeader());
@@ -87,7 +67,7 @@ class TagTest extends AbstractTestCase
 
     public function testSetExtendedHeader()
     {
-        $header = new ExtendedHeader($this->tag->getBinaryReader());
+        $header = new ExtendedHeader();
         $header->setFlags(0x01);
         $this->tag->setExtendedHeader($header);
         $this->assertSame($header, $this->tag->getExtendedHeader());
@@ -109,7 +89,7 @@ class TagTest extends AbstractTestCase
 
     public function testAddFrame()
     {
-        $frame = new Unknown($this->binaryReader, 'TXXX');
+        $frame = new Unknown('TXXX');
         $this->tag->addFrame($frame);
         $this->assertNotEmpty($this->tag->getFrames());
         $this->assertInstanceOf(
@@ -125,7 +105,7 @@ class TagTest extends AbstractTestCase
 
     public function testSetResolver()
     {
-        $resolver = new Resolver($this->binaryReader);
+        $resolver = new Resolver();
         $this->tag->setResolver($resolver);
         $this->assertSame($resolver, $this->tag->getResolver());
     }

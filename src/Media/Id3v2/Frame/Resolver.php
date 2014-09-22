@@ -20,22 +20,8 @@ use PhpBinaryReader\BinaryReader;
  *
  * @package Nakard\MusicFormats\Media\Id3v2\Frame
  */
-class Resolver implements BinaryReaderAwareInterface
+class Resolver
 {
-    use BinaryTrait;
-
-    /**
-     * @param BinaryReader $binaryReader
-     *
-     * @return Resolver;
-     */
-    public function setBinaryReader(BinaryReader $binaryReader)
-    {
-        $this->binaryReader = $binaryReader;
-
-        return $this;
-    }
-
     /**
      * @param   string       $identifier
      *
@@ -56,7 +42,7 @@ class Resolver implements BinaryReaderAwareInterface
         }
         switch(strtoupper($identifier)) {
             default:
-                return new Unknown($this->getBinaryReader(), $identifier);
+                return new Unknown($identifier);
         }
     }
 } 

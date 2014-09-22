@@ -29,27 +29,7 @@ class ResolverTest extends \Nakard\MusicFormats\Tests\Media\Id3v2\AbstractTestCa
     protected function setUp()
     {
         parent::setUp();
-        $this->resolver = new Resolver($this->binaryReader);
-    }
-
-    public function testGetBinaryReader()
-    {
-        $this->assertNull($this->resolver->getBinaryReader());
-    }
-
-    public function testSetBinaryReader()
-    {
-        $this->resolver->setBinaryReader($this->binaryReader);
-        $this->assertSame($this->binaryReader, $this->resolver->getBinaryReader());
-        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->resolver->getBinaryReader());
-    }
-
-    /**
-     * @expectedException \ErrorException
-     */
-    public function testSetBinaryReaderWithInvalidArgument()
-    {
-        $this->resolver->setBinaryReader($this->resolver);
+        $this->resolver = new Resolver();
     }
 
     /**

@@ -27,6 +27,6 @@ class UnknownTest extends AbstractFrameTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->frame = new Unknown($this->binaryReader);
+        $this->frame = new Unknown();
     }
 } 

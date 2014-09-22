@@ -10,23 +10,15 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
-use PhpBinaryReader\BinaryReader;
-use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
-
 /**
  * Class ExtendedHeader
  *
  * @package Nakard\MusicFormats\Media\Id3v2
  * //TODO to implement when I got my hands on a file with extended header
  */
-class ExtendedHeader implements BinaryReaderAwareInterface
+class ExtendedHeader
 {
-    use Size28BitTrait;
-
-    /**
-     * @var int
-     */
-    private $flags;
+    use SizeTrait, FlagTrait;
 
     /**
      * @var int
@@ -41,40 +33,6 @@ class ExtendedHeader implements BinaryReaderAwareInterface
         $this->size = 0;
         $this->flags = 0;
         $this->paddingSize = 0;
-    }
-
-    /**
-     * @param BinaryReader $binaryReader
-     * @return ExtendedHeader
-     */
-    public function setBinaryReader(BinaryReader $binaryReader)
-    {
-        $this->binaryReader = $binaryReader;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFlags()
-    {
-        return $this->flags;
-    }
-
-    /**
-     * @param int $flags
-     *
-     * @return ExtendedHeader
-     */
-    public function setFlags($flags)
-    {
-        if (!is_int($flags)) {
-            throw new \InvalidArgumentException('Flags must be an integer');
-        }
-        $this->flags = $flags;
-
-        return $this;
     }
 
     /**
@@ -95,28 +53,6 @@ class ExtendedHeader implements BinaryReaderAwareInterface
             throw new \InvalidArgumentException('Padding size must be an integer');
         }
         $this->paddingSize = $paddingSize;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param int $size
-     * @return ExtendedHeader
-     */
-    public function setSize($size)
-    {
-        if (!is_int($size)) {
-            throw new \InvalidArgumentException('Size must be an integer');
-        }
-        $this->size = $size;
 
         return $this;
     }

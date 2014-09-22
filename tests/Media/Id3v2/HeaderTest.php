@@ -28,7 +28,7 @@ class HeaderTest extends AbstractTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->header = new Header($this->binaryReader);
+        $this->header = new Header();
     }
 
     public function testConstruct()
@@ -185,25 +185,5 @@ class HeaderTest extends AbstractTestCase
     public function testSetSizeWithInvalidArgument($argument)
     {
         $this->header->setSize($argument);
-    }
-
-    public function testGetBinaryReader()
-    {
-        $this->assertNull($this->header->getBinaryReader());
-    }
-
-    public function testSetBinaryReader()
-    {
-        $this->header->setBinaryReader($this->binaryReader);
-        $this->assertSame($this->binaryReader, $this->header->getBinaryReader());
-        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->header->getBinaryReader());
-    }
-
-    /**
-     * @expectedException \ErrorException
-     */
-    public function testSetBinaryReaderWithInvalidArgument()
-    {
-        $this->header->setBinaryReader($this->header);
     }
 }

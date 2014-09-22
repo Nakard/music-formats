@@ -28,7 +28,7 @@ class ExtendedHeaderTest extends AbstractTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->extendedHeader = new ExtendedHeader($this->binaryReader);
+        $this->extendedHeader = new ExtendedHeader();
     }
 
     public function testConstruct()
@@ -97,24 +97,5 @@ class ExtendedHeaderTest extends AbstractTestCase
     public function testSetPaddingSizeWithInvalidArgument($argument)
     {
         $this->extendedHeader->setPaddingSize($argument);
-    }
-
-    public function testGetBinaryReader()
-    {
-        $this->assertNull($this->extendedHeader->getBinaryReader());
-    }
-
-    public function testSetBinaryReader()
-    {
-        $this->extendedHeader->setBinaryReader($this->binaryReader);
-        $this->assertSame($this->binaryReader, $this->extendedHeader->getBinaryReader());
-    }
-
-    /**
-     * @expectedException ErrorException
-     */
-    public function testSetBinaryReaderWithInvalidArgument()
-    {
-        $this->extendedHeader->setBinaryReader($this->extendedHeader);
     }
 }

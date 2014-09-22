@@ -10,17 +10,14 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
-use PhpBinaryReader\BinaryReader;
-use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
-
 /**
  * Class Header
  *
  * @package Nakard\MusicFormats\Media\Id3v2
  */
-class Header implements BinaryReaderAwareInterface
+class Header
 {
-    use Size28BitTrait;
+    use SizeTrait, FlagTrait;
 
     /**
      * @var string
@@ -38,11 +35,6 @@ class Header implements BinaryReaderAwareInterface
     private $revision;
 
     /**
-     * @var int
-     */
-    private $flags;
-
-    /**
      * Constructs new ID3v2 header
      */
     public function __construct()
@@ -52,30 +44,6 @@ class Header implements BinaryReaderAwareInterface
         $this->revision = 0;
         $this->flags = 0;
         $this->size = 0;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFlags()
-    {
-        return $this->flags;
-    }
-
-    /**
-     * @param $flags
-     * @throws \InvalidArgumentException
-     * @return Header
-     */
-    public function setFlags($flags)
-    {
-        if (!is_int($flags)) {
-            throw new \InvalidArgumentException('Flags must be an integer');
-        }
-
-        $this->flags = $flags;
-
-        return $this;
     }
 
     /**
@@ -127,29 +95,6 @@ class Header implements BinaryReaderAwareInterface
     /**
      * @return int
      */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param int $size
-     * @throws \InvalidArgumentException
-     * @return Header
-     */
-    public function setSize($size)
-    {
-        if (!is_int($size)) {
-            throw new \InvalidArgumentException('Size must be an integer');
-        }
-        $this->size = $size;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
     public function getVersion()
     {
         return $this->version;
@@ -166,18 +111,6 @@ class Header implements BinaryReaderAwareInterface
             throw new \InvalidArgumentException('Version must be an integer');
         }
         $this->version = $version;
-
-        return $this;
-    }
-
-    /**
-     * @param BinaryReader $binaryReader
-     *
-     * @return Header
-     */
-    public function setBinaryReader(BinaryReader $binaryReader)
-    {
-        $this->binaryReader = $binaryReader;
 
         return $this;
     }

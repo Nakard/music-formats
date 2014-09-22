@@ -26,26 +26,6 @@ abstract class AbstractFrameTestCase extends AbstractTestCase
      */
     protected $frame;
 
-    public function testGetBinaryReader()
-    {
-        $this->assertNull($this->frame->getBinaryReader());
-    }
-
-    public function testSetBinaryReader()
-    {
-        $this->frame->setBinaryReader($this->binaryReader);
-        $this->assertInstanceOf('PhpBinaryReader\\BinaryReader', $this->frame->getBinaryReader());
-        $this->assertSame($this->binaryReader, $this->frame->getBinaryReader());
-    }
-
-    /**
-     * @expectedException \ErrorException
-     */
-    public function testSetBinaryReaderWithInvalidArgument()
-    {
-        $this->frame->setBinaryReader($this->frame);
-    }
-
     public function testGetIdentifer()
     {
         $this->assertSame('', $this->frame->getIdentifier());

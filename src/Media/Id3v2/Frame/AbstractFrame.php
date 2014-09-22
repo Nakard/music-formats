@@ -10,28 +10,22 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame;
 
-use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
-use Nakard\MusicFormats\Media\Id3v2\Size28BitTrait;
-use PhpBinaryReader\BinaryReader;
+use Nakard\MusicFormats\Media\Id3v2\FlagTrait;
+use Nakard\MusicFormats\Media\Id3v2\SizeTrait;
 
 /**
  * Class AbstractFrame
  *
  * @package Nakard\MusicFormats\Media\Id3v2\Frame
  */
-abstract class AbstractFrame implements BinaryReaderAwareInterface
+abstract class AbstractFrame
 {
-    use Size28BitTrait;
+    use SizeTrait, FlagTrait;
 
     /**
      * @var string
      */
     private $identifier;
-
-    /**
-     * @var int
-     */
-    private $flags;
 
     /**
      * @var string
@@ -47,25 +41,6 @@ abstract class AbstractFrame implements BinaryReaderAwareInterface
         $this->content = '';
         $this->size = 0;
         $this->flags = 0;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFlags()
-    {
-        return $this->flags;
-    }
-
-    /**
-     * @param int $flags
-     */
-    public function setFlags($flags)
-    {
-        if (!is_int($flags)) {
-            throw new \InvalidArgumentException('Flags must be an integer');
-        }
-        $this->flags = $flags;
     }
 
     /**
@@ -88,25 +63,6 @@ abstract class AbstractFrame implements BinaryReaderAwareInterface
     }
 
     /**
-     * @return int
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param int $size
-     */
-    public function setSize($size)
-    {
-        if (!is_int($size)) {
-            throw new \InvalidArgumentException('Size must be an integer');
-        }
-        $this->size = $size;
-    }
-
-    /**
      * @return string
      */
     public function getContent()
@@ -123,13 +79,5 @@ abstract class AbstractFrame implements BinaryReaderAwareInterface
             throw new \InvalidArgumentException('Content must be a string');
         }
         $this->content = $content;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setBinaryReader(BinaryReader $binaryReader)
-    {
-        $this->binaryReader = $binaryReader;
     }
 }

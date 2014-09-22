@@ -21,14 +21,10 @@ use Symfony\Component\Debug\ErrorHandler;
  */
 abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 {
-    protected $binaryReader;
-
     protected function setUp()
     {
         Debug::enable();
         ErrorHandler::register();
-        $handle = fopen(__DIR__ . '/asset/tagtest.ID3v2.4.mp3', 'rb+');
-        $this->binaryReader = new BinaryReader($handle);
     }
 
     /**

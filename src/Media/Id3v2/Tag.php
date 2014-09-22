@@ -11,22 +11,18 @@
 namespace Nakard\MusicFormats\Media\Id3v2;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Nakard\MusicFormats\Reader\BinaryTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use PhpBinaryReader\BinaryReader;
 use Nakard\MusicFormats\Media\Id3v2\Frame\AbstractFrame;
 use Nakard\MusicFormats\Media\Id3v2\Frame\Resolver;
-use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
 
 /**
  * Class Tag
  *
  * @package  Nakard\Media\Id3v2
  */
-class Tag implements BinaryReaderAwareInterface
+class Tag
 {
-    use BinaryTrait;
-
     /**
      * @var Header
      */
@@ -96,18 +92,6 @@ class Tag implements BinaryReaderAwareInterface
     public function getExtendedHeader()
     {
         return $this->extendedHeader;
-    }
-
-    /**
-     * @param BinaryReader $binaryReader
-     *
-     * @return Tag
-     */
-    public function setBinaryReader(BinaryReader $binaryReader)
-    {
-        $this->binaryReader = $binaryReader;
-
-        return $this;
     }
 
     /**
