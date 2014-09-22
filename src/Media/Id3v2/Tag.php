@@ -54,7 +54,7 @@ class Tag implements BinaryReaderAwareInterface
     {
         $this->header = new Header();
         $this->extendedHeader = new ExtendedHeader();
-        $this->resolver = new Resolver($this->getBinaryReader());
+        $this->resolver = new Resolver();
         $this->frames = new ArrayCollection();
     }
 
