@@ -142,4 +142,46 @@ class ExtendedHeaderTest extends AbstractTestCase
     {
         $this->extendedHeader->setFlagBytesNumber($argument);
     }
+
+    public function testGetCrcData()
+    {
+        $this->assertSame(0, $this->extendedHeader->getCrcData());
+    }
+
+    public function testSetCrcData()
+    {
+        $this->extendedHeader->setCrcData(10);
+        $this->assertSame(10, $this->extendedHeader->getCrcData());
+    }
+
+    /**
+     * @dataProvider exceptionForOnlyIntegerProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage CRC data must be an integer
+     */
+    public function testSetCrcDataWithInvalidArgument($argument)
+    {
+        $this->extendedHeader->setCrcData($argument);
+    }
+
+    public function testGetTagRestrictions()
+    {
+        $this->assertSame(0, $this->extendedHeader->getTagRestrictions());
+    }
+
+    public function testSetTagRestrictions()
+    {
+        $this->extendedHeader->setTagRestrictions(1);
+        $this->assertSame(1, $this->extendedHeader->getTagRestrictions());
+    }
+
+    /**
+     * @dataProvider exceptionForOnlyIntegerProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Tag restrictions must be an integer
+     */
+    public function testSetTagRestrictionsWithInvalidArgument($argument)
+    {
+        $this->extendedHeader->setTagRestrictions($argument);
+    }
 }

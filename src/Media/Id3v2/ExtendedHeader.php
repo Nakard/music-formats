@@ -31,6 +31,17 @@ class ExtendedHeader
     private $flagBytesNumber;
 
     /**
+     * @var int
+     */
+    private $crcData;
+
+    /**
+     * @var int
+     */
+    private $tagRestrictions;
+
+
+    /**
      * Constructs new extended header
      */
     public function __construct()
@@ -39,6 +50,8 @@ class ExtendedHeader
         $this->flags = 0;
         $this->paddingSize = 0;
         $this->flagBytesNumber = 0;
+        $this->crcData = 0;
+        $this->tagRestrictions = 0;
     }
 
     /**
@@ -82,6 +95,52 @@ class ExtendedHeader
             throw new \InvalidArgumentException('Flag bytes number must be an integer');
         }
         $this->flagBytesNumber = $flagBytesNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCrcData()
+    {
+        return $this->crcData;
+    }
+
+    /**
+     * @param int $crcData
+     *
+     * @return ExtendedHeader
+     */
+    public function setCrcData($crcData)
+    {
+        if (!is_int($crcData)) {
+            throw new \InvalidArgumentException('CRC data must be an integer');
+        }
+        $this->crcData = $crcData;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTagRestrictions()
+    {
+        return $this->tagRestrictions;
+    }
+
+    /**
+     * @param int $tagRestrictions
+     *
+     * @return ExtendedHeader
+     */
+    public function setTagRestrictions($tagRestrictions)
+    {
+        if (!is_int($tagRestrictions)) {
+            throw new \InvalidArgumentException('Tag restrictions must be an integer');
+        }
+        $this->tagRestrictions = $tagRestrictions;
 
         return $this;
     }
