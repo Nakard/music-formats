@@ -75,7 +75,11 @@ class TagRestrictions
         if (!is_int($imageEncodingRestrictions)) {
             throw new \InvalidArgumentException('Image encoding restrictions must be an integer');
         }
+        if ($imageEncodingRestrictions < 0 || $imageEncodingRestrictions > 1) {
+            throw new \InvalidArgumentException('Image encoding restrictions can only accept values 0,1');
+        }
         $this->imageEncodingRestrictions = $imageEncodingRestrictions;
+        $this->flags = $this->getFlags() | ($imageEncodingRestrictions << 2);
 
         return $this;
     }
@@ -98,7 +102,11 @@ class TagRestrictions
         if (!is_int($imageSizeRestrictions)) {
             throw new \InvalidArgumentException('Image size restrictions must be an integer');
         }
+        if ($imageSizeRestrictions < 0 || $imageSizeRestrictions > 3) {
+            throw new \InvalidArgumentException('Image size restrictions can only accept values 0,1,2,3');
+        }
         $this->imageSizeRestrictions = $imageSizeRestrictions;
+        $this->flags = $this->getFlags() | $imageSizeRestrictions;
 
         return $this;
     }
@@ -121,7 +129,11 @@ class TagRestrictions
         if (!is_int($tagSizeRestrictions)) {
             throw new \InvalidArgumentException('Tag size restrictions must be an integer');
         }
+        if ($tagSizeRestrictions < 0 || $tagSizeRestrictions > 3) {
+            throw new \InvalidArgumentException('Tag size restrictions can only accept values 0,1,2,3');
+        }
         $this->tagSizeRestrictions = $tagSizeRestrictions;
+        $this->flags = $this->getFlags() | ($tagSizeRestrictions << 6);
 
         return $this;
     }
@@ -144,7 +156,11 @@ class TagRestrictions
         if (!is_int($textEncodingRestrictions)) {
             throw new \InvalidArgumentException('Text encoding restrictions must be an integer');
         }
+        if ($textEncodingRestrictions < 0 || $textEncodingRestrictions > 1) {
+            throw new \InvalidArgumentException('Text encoding restrictions can only accept values 0,1');
+        }
         $this->textEncodingRestrictions = $textEncodingRestrictions;
+        $this->flags = $this->getFlags() | ($textEncodingRestrictions << 5);
 
         return $this;
     }
@@ -167,7 +183,11 @@ class TagRestrictions
         if (!is_int($textFieldsSizeRestrictions)) {
             throw new \InvalidArgumentException('Text fields size restrictions must be an integer');
         }
+        if ($textFieldsSizeRestrictions < 0 || $textFieldsSizeRestrictions > 3) {
+            throw new \InvalidArgumentException('Text fields size restrictions can only accept values 0,1,2,3');
+        }
         $this->textFieldsSizeRestrictions = $textFieldsSizeRestrictions;
+        $this->flags = $this->getFlags() | ($textFieldsSizeRestrictions << 3);
 
         return $this;
     }

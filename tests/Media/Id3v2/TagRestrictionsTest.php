@@ -42,8 +42,9 @@ class TagRestrictionsTest extends AbstractTestCase
 
     public function testSetTagSizeRestrictions()
     {
-        $this->tagRestrictions->setTagSizeRestrictions(1);
-        $this->assertSame(1, $this->tagRestrictions->getTagSizeRestrictions());
+        $this->tagRestrictions->setTagSizeRestrictions(3);
+        $this->assertSame(3, $this->tagRestrictions->getTagSizeRestrictions());
+        $this->assertSame(0b11000000, $this->tagRestrictions->getFlags());
     }
 
     /**
@@ -56,6 +57,24 @@ class TagRestrictionsTest extends AbstractTestCase
         $this->tagRestrictions->setTagSizeRestrictions($argument);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Tag size restrictions can only accept values 0,1,2,3
+     */
+    public function testSetTagSizeRestrictionsTooLarge()
+    {
+        $this->tagRestrictions->setTagSizeRestrictions(4);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Tag size restrictions can only accept values 0,1,2,3
+     */
+    public function testSetTagSizeRestrictionsTooSmall()
+    {
+        $this->tagRestrictions->setTagSizeRestrictions(-1);
+    }
+
     public function testGetTextEncodingRestrictions()
     {
         $this->assertSame(0, $this->tagRestrictions->getTextEncodingRestrictions());
@@ -65,6 +84,25 @@ class TagRestrictionsTest extends AbstractTestCase
     {
         $this->tagRestrictions->setTextEncodingRestrictions(1);
         $this->assertSame(1, $this->tagRestrictions->getTextEncodingRestrictions());
+        $this->assertSame(0b00100000, $this->tagRestrictions->getFlags());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Text encoding restrictions can only accept values 0,1
+     */
+    public function testSetTextEncodingRestrictionsTooLarge()
+    {
+        $this->tagRestrictions->setTextEncodingRestrictions(2);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Text encoding restrictions can only accept values 0,1
+     */
+    public function testSetTextEncodingRestrictionsTooSmall()
+    {
+        $this->tagRestrictions->setTextEncodingRestrictions(-1);
     }
 
     /**
@@ -84,8 +122,27 @@ class TagRestrictionsTest extends AbstractTestCase
 
     public function testSetTextFieldsSizeRestrictions()
     {
-        $this->tagRestrictions->setTextFieldsSizeRestrictions(1);
-        $this->assertSame(1, $this->tagRestrictions->getTextFieldsSizeRestrictions());
+        $this->tagRestrictions->setTextFieldsSizeRestrictions(2);
+        $this->assertSame(2, $this->tagRestrictions->getTextFieldsSizeRestrictions());
+        $this->assertSame(0b00010000, $this->tagRestrictions->getFlags());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Text fields size restrictions can only accept values 0,1,2,3
+     */
+    public function testSetTextFieldsSizeRestrictionsTooLarge()
+    {
+        $this->tagRestrictions->setTextFieldsSizeRestrictions(4);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Text fields size restrictions can only accept values 0,1,2,3
+     */
+    public function testSetTextFieldsSizeRestrictionsTooSmall()
+    {
+        $this->tagRestrictions->setTextFieldsSizeRestrictions(-1);
     }
 
     /**
@@ -107,6 +164,25 @@ class TagRestrictionsTest extends AbstractTestCase
     {
         $this->tagRestrictions->setImageEncodingRestrictions(1);
         $this->assertSame(1, $this->tagRestrictions->getImageEncodingRestrictions());
+        $this->assertSame(0b00000100, $this->tagRestrictions->getFlags());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Image encoding restrictions can only accept values 0,1
+     */
+    public function testSetImageEncodingRestrictionsTooLarge()
+    {
+        $this->tagRestrictions->setImageEncodingRestrictions(2);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Image encoding restrictions can only accept values 0,1
+     */
+    public function testSetImageEncodingRestrictionsTooSmall()
+    {
+        $this->tagRestrictions->setImageEncodingRestrictions(-1);
     }
 
     /**
@@ -126,10 +202,28 @@ class TagRestrictionsTest extends AbstractTestCase
 
     public function testSetImageSizeRestrictions()
     {
-        $this->tagRestrictions->setImageSizeRestrictions(1);
-        $this->assertSame(1, $this->tagRestrictions->getImageSizeRestrictions());
+        $this->tagRestrictions->setImageSizeRestrictions(2);
+        $this->assertSame(2, $this->tagRestrictions->getImageSizeRestrictions());
+        $this->assertSame(0b00000010, $this->tagRestrictions->getFlags());
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Image size restrictions can only accept values 0,1,2,3
+     */
+    public function testSetImageSizeRestrictionsTooLarge()
+    {
+        $this->tagRestrictions->setImageSizeRestrictions(4);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Image size restrictions can only accept values 0,1,2,3
+     */
+    public function testSetImageSizeRestrictionsTooSmall()
+    {
+        $this->tagRestrictions->setImageSizeRestrictions(-1);
+    }
     /**
      * @dataProvider exceptionForOnlyIntegerProvider
      * @expectedException \InvalidArgumentException
