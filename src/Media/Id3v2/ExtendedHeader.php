@@ -26,6 +26,11 @@ class ExtendedHeader
     private $paddingSize;
 
     /**
+     * @var int
+     */
+    private $flagBytesNumber;
+
+    /**
      * Constructs new extended header
      */
     public function __construct()
@@ -33,6 +38,7 @@ class ExtendedHeader
         $this->size = 0;
         $this->flags = 0;
         $this->paddingSize = 0;
+        $this->flagBytesNumber = 0;
     }
 
     /**
@@ -53,6 +59,29 @@ class ExtendedHeader
             throw new \InvalidArgumentException('Padding size must be an integer');
         }
         $this->paddingSize = $paddingSize;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFlagBytesNumber()
+    {
+        return $this->flagBytesNumber;
+    }
+
+    /**
+     * @param int $flagBytesNumber
+     *
+     * @return ExtendedHeader
+     */
+    public function setFlagBytesNumber($flagBytesNumber)
+    {
+        if (!is_int($flagBytesNumber)) {
+            throw new \InvalidArgumentException('Flag bytes number must be an integer');
+        }
+        $this->flagBytesNumber = $flagBytesNumber;
 
         return $this;
     }

@@ -11,8 +11,8 @@
 namespace Nakard\MusicFormats\Tests\Media\Id3v2;
 
 use Nakard\MusicFormats\Media\Id3v2\Reader;
-use PhpBinaryReader\BinaryReader;
 use Symfony\Component\HttpFoundation\File\File;
+use Nakard\MusicFormats\BinaryReader;
 
 /**
  * Class ReaderTest

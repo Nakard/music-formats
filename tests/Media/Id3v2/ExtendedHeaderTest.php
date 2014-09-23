@@ -98,4 +98,25 @@ class ExtendedHeaderTest extends AbstractTestCase
     {
         $this->extendedHeader->setPaddingSize($argument);
     }
+
+    public function testGetFlagBytesNumber()
+    {
+        $this->assertSame(0, $this->extendedHeader->getFlagBytesNumber());
+    }
+
+    public function testSetFlagBytesNumber()
+    {
+        $this->extendedHeader->setFlagBytesNumber(1);
+        $this->assertSame(1, $this->extendedHeader->getFlagBytesNumber());
+    }
+
+    /**
+     * @dataProvider exceptionForOnlyIntegerProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Flag bytes number must be an integer
+     */
+    public function testSetFlagBytesNumberWithInvalidArgument($argument)
+    {
+        $this->extendedHeader->setFlagBytesNumber($argument);
+    }
 }

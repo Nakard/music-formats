@@ -10,7 +10,7 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
-use PhpBinaryReader\BinaryReader;
+use Nakard\MusicFormats\BinaryReader;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -86,6 +86,8 @@ class Reader
     private function readExtendedHeader()
     {
         $extendedHeader = new ExtendedHeader();
+        $extendedHeader->setSize($this->getBinaryReader()->read28BitInteger());
+
 
         return $extendedHeader;
     }
