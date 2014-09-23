@@ -17,6 +17,8 @@ namespace Nakard\MusicFormats\Media\Id3v2;
  */
 class TagRestrictions
 {
+    use FlagTrait;
+
     /**
      * @var int
      */
@@ -52,6 +54,7 @@ class TagRestrictions
         $this->textFieldsSizeRestrictions = 0;
         $this->imageEncodingRestrictions = 0;
         $this->imageSizeRestrictions = 0;
+        $this->flags = 0;
     }
 
     /**
@@ -165,6 +168,27 @@ class TagRestrictions
             throw new \InvalidArgumentException('Text fields size restrictions must be an integer');
         }
         $this->textFieldsSizeRestrictions = $textFieldsSizeRestrictions;
+
+        return $this;
+    }
+
+    /**
+     * @param int $flags
+     *
+     * @throws \InvalidArgumentException
+     * @return TagRestrictions
+     */
+    public function setFlags($flags)
+    {
+        if (!is_int($flags)) {
+            throw new \InvalidArgumentException('Flags must be an integer');
+        }
+        $this->flags = $flags;
+        $this->setTagSizeRestrictions(($this->getFlags() & 0b11000000) >> 6);
+        $this->setTextEncodingRestrictions(($this->getFlags() & 0b00100000) >> 5);
+        $this->setTextFieldsSizeRestrictions(($this->getFlags() & 0b00011000) >> 3);
+        $this->setImageEncodingRestrictions(($this->getFlags() & 0b00000100) >> 2);
+        $this->setImageSizeRestrictions($this->getFlags() & 0b00000011);
 
         return $this;
     }
