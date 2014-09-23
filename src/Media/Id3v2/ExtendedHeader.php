@@ -10,6 +10,8 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
+use Nakard\MusicFormats\Media\Id3v2\TagRestrictions;
+
 /**
  * Class ExtendedHeader
  *
@@ -36,7 +38,7 @@ class ExtendedHeader
     private $crcData;
 
     /**
-     * @var int
+     * @var TagRestrictions
      */
     private $tagRestrictions;
 
@@ -51,7 +53,7 @@ class ExtendedHeader
         $this->paddingSize = 0;
         $this->flagBytesNumber = 0;
         $this->crcData = 0;
-        $this->tagRestrictions = 0;
+        $this->tagRestrictions = new TagRestrictions();
     }
 
     /**
@@ -123,7 +125,7 @@ class ExtendedHeader
     }
 
     /**
-     * @return int
+     * @return TagRestrictions
      */
     public function getTagRestrictions()
     {
@@ -131,15 +133,12 @@ class ExtendedHeader
     }
 
     /**
-     * @param int $tagRestrictions
+     * @param TagRestrictions $tagRestrictions
      *
      * @return ExtendedHeader
      */
-    public function setTagRestrictions($tagRestrictions)
+    public function setTagRestrictions(TagRestrictions $tagRestrictions)
     {
-        if (!is_int($tagRestrictions)) {
-            throw new \InvalidArgumentException('Tag restrictions must be an integer');
-        }
         $this->tagRestrictions = $tagRestrictions;
 
         return $this;

@@ -12,6 +12,7 @@ namespace Nakard\MusicFormats\Tests\Media\Id3v2;
 
 use Nakard\MusicFormats\Media\Id3v2\ExtendedHeader;
 use ErrorException;
+use Nakard\MusicFormats\Media\Id3v2\TagRestrictions;
 
 /**
  * Class ExtendedHeaderTest
@@ -166,19 +167,21 @@ class ExtendedHeaderTest extends AbstractTestCase
 
     public function testGetTagRestrictions()
     {
-        $this->assertSame(0, $this->extendedHeader->getTagRestrictions());
+        $this->assertInstanceOf(
+            'Nakard\\MusicFormats\\Media\\Id3v2\\TagRestrictions',
+            $this->extendedHeader->getTagRestrictions()
+        );
     }
 
     public function testSetTagRestrictions()
     {
-        $this->extendedHeader->setTagRestrictions(1);
-        $this->assertSame(1, $this->extendedHeader->getTagRestrictions());
+        $restrictions = new TagRestrictions();
+        $this->extendedHeader->setTagRestrictions($restrictions);
+        $this->assertSame($restrictions, $this->extendedHeader->getTagRestrictions());
     }
 
     /**
-     * @dataProvider exceptionForOnlyIntegerProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Tag restrictions must be an integer
+     * @expectedException \ErrorException
      */
     public function testSetTagRestrictionsWithInvalidArgument($argument)
     {
