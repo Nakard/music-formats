@@ -67,10 +67,33 @@ class ExtendedHeaderTest extends AbstractTestCase
         $this->extendedHeader->setSize($argument);
     }
 
-    public function testSetFlags()
+    /**
+     * @dataProvider flagsProvider
+     */
+    public function testSetFlags($flags, $tagUpdate, $crcData, $tagRestrictions)
     {
-        $this->extendedHeader->setFlags(15);
-        $this->assertSame(15, $this->extendedHeader->getFlags());
+        $this->extendedHeader->setFlags($flags);
+        $this->assertSame($flags, $this->extendedHeader->getFlags());
+        $this->assertSame($tagUpdate, $this->extendedHeader->hasTagUpdate());
+        $this->assertSame($crcData, $this->extendedHeader->hasCrcData());
+        $this->assertSame($tagRestrictions, $this->extendedHeader->hasTagRestrictions());
+    }
+
+    /**
+     * @return array
+     */
+    public function flagsProvider()
+    {
+        return [
+            'no flags'              =>  [0x00, false, false, false],
+            'only update'           =>  [0x40, true, false, false],
+            'only crc'              =>  [0x20, false, true, false],
+            'only restriction'      =>  [0x10, false, false, true],
+            'update + crc'          =>  [0x60, true, true, false],
+            'update + restriction'  =>  [0x50, true, false, true],
+            'crc + restriction'     =>  [0x30, false, true, true],
+            'all'                   =>  [0x70, true, true, true]
+        ];
     }
 
     /**

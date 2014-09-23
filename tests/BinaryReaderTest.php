@@ -53,7 +53,7 @@ class BinaryReaderTest extends \PHPUnit_Framework_TestCase
     {
         $reader = new BinaryReader($this->handle, Endian::ENDIAN_BIG);
         $reader->setPosition($position);
-        $this->assertSame($expected, $reader->read28BitInteger());
+        $this->assertSame($expected, $reader->readUInt8WithDiscardedMsb(4));
     }
 
     /**

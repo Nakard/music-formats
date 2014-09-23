@@ -22,10 +22,9 @@ class BinaryReader extends \PhpBinaryReader\BinaryReader
      *
      * @return int
      */
-    public function read28BitInteger()
+    public function readUInt8WithDiscardedMsb($bytes)
     {
         $binaryString = '';
-        $bytes = 4;
         for ($i = 0; $i < $bytes; $i++) {
             $binary = decbin($this->readUInt8());
             if (8 === strlen($binary)) {

@@ -85,4 +85,28 @@ class ExtendedHeader
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function hasTagUpdate()
+    {
+        return (bool) ($this->getFlags() & 0x40);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCrcData()
+    {
+        return (bool) ($this->getFlags() & 0x20);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasTagRestrictions()
+    {
+        return (bool) ($this->getFlags() & 0x10);
+    }
 }

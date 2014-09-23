@@ -87,7 +87,8 @@ class Reader
     {
         $extendedHeader = new ExtendedHeader();
         $extendedHeader->setSize($this->getBinaryReader()->read28BitInteger());
-
+        $extendedHeader->setFlagBytesNumber($this->getBinaryReader()->readUInt8());
+        $extendedHeader->setFlags($this->getBinaryReader()->readBytes($extendedHeader->getFlagBytesNumber()));
 
         return $extendedHeader;
     }
