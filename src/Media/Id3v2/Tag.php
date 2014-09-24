@@ -11,15 +11,13 @@
 namespace Nakard\MusicFormats\Media\Id3v2;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\File\File;
-use PhpBinaryReader\BinaryReader;
 use Nakard\MusicFormats\Media\Id3v2\Frame\AbstractFrame;
 use Nakard\MusicFormats\Media\Id3v2\Frame\Resolver;
 
 /**
  * Class Tag
  *
- * @package  Nakard\Media\Id3v2
+ * @package Nakard\Media\Id3v2
  */
 class Tag
 {
@@ -44,7 +42,7 @@ class Tag
     private $resolver;
 
     /**
-     * @param File $file
+     * Constructs new tag
      */
     public function __construct()
     {
