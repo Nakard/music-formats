@@ -28,17 +28,11 @@ abstract class AbstractFrame
     private $identifier;
 
     /**
-     * @var string
-     */
-    private $content;
-
-    /**
      * Constructs new frame
      */
     public function __construct()
     {
         $this->identifier = '';
-        $this->content = '';
         $this->size = 0;
         $this->flags = 0;
     }
@@ -60,24 +54,5 @@ abstract class AbstractFrame
             throw new \InvalidArgumentException('Identifier must be a string');
         }
         $this->identifier = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * @param string $content
-     */
-    public function setContent($content)
-    {
-        if (!is_string($content)) {
-            throw new \InvalidArgumentException('Content must be a string');
-        }
-        $this->content = $content;
     }
 }

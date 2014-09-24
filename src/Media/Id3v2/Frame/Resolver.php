@@ -10,10 +10,8 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame;
 
+use Nakard\MusicFormats\Media\Id3v2\Frame\Exception\EmptyIdentifierException;
 use Nakard\MusicFormats\Media\Id3v2\Frame\Exception\InvalidIdentifierException;
-use Nakard\MusicFormats\Reader\BinaryReaderAwareInterface;
-use Nakard\MusicFormats\Reader\BinaryTrait;
-use PhpBinaryReader\BinaryReader;
 
 /**
  * Class Resolver
@@ -35,7 +33,7 @@ class Resolver
             throw new \InvalidArgumentException('Identifier must be a string');
         }
         if ('' === $identifier) {
-            throw new \InvalidArgumentException('Identifier can\'t be an empty string');
+            throw new EmptyIdentifierException;
         }
         if (4 !== strlen($identifier)) {
             throw new InvalidIdentifierException('Identifier must have 4 characters');

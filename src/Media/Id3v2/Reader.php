@@ -10,7 +10,9 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Nakard\MusicFormats\BinaryReader;
+use Nakard\MusicFormats\Media\Id3v2\Frame\Resolver;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -63,8 +65,11 @@ class Reader
             $tag->setExtendedHeader($this->readExtendedHeader());
         }
 
+        $frames = $this->readFrames();
+
         return $tag;
     }
+
 
     /**
      * @return Header
@@ -86,10 +91,45 @@ class Reader
     private function readExtendedHeader()
     {
         $extendedHeader = new ExtendedHeader();
-        $extendedHeader->setSize($this->getBinaryReader()->read28BitInteger());
+        $extendedHeader->setSize($this->getBinaryReader()->readUInt8WithDiscardedMsb(4));
         $extendedHeader->setFlagBytesNumber($this->getBinaryReader()->readUInt8());
         $extendedHeader->setFlags($this->getBinaryReader()->readBytes($extendedHeader->getFlagBytesNumber()));
+        if ($extendedHeader->hasTagUpdate()) {
+            $tagUpdateFlagDataLength = $this->getBinaryReader()->readUInt8();
+            if ($tagUpdateFlagDataLength) {
+                //left if this flag will get ever data attached to it
+            }
+        }
+        if ($extendedHeader->hasCrcData()) {
+            $crcDataFlagDataLength = $this->getBinaryReader()->readUInt8();
+            if ($crcDataFlagDataLength) {
+                $extendedHeader->setCrcData(
+                    $this->getBinaryReader()->readUInt8WithDiscardedMsb($crcDataFlagDataLength)
+                );
+            }
+        }
+        if ($extendedHeader->hasTagRestrictions()) {
+            $tagRestrictionsFlagDataLength = $this->getBinaryReader()->readUInt8();
+            if ($tagRestrictionsFlagDataLength) {
+                $extendedHeader->getTagRestrictions()->setFlags($this->getBinaryReader()->readUInt8());
+            }
+        }
 
         return $extendedHeader;
+    }
+
+    private function readFrames()
+    {
+        $frames = new ArrayCollection();
+        $resolver = new Resolver();
+        while (true) {
+            $identifier = $this->getBinaryReader()->readString(4);
+            if (empty($identifier)) {
+                break;
+            }
+            $frame = $resolver->resolve($identifier);
+            $frame->setSize($this->getBinaryReader()->readUInt8WithDiscardedMsb(4));
+            $frame->setFlags($this->getBinaryReader()->readUInt16());
+        }
     }
 } 

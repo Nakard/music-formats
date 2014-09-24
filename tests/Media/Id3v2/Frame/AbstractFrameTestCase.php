@@ -12,7 +12,6 @@ namespace Nakard\MusicFormats\Tests\Media\Id3v2\Frame;
 
 use Nakard\MusicFormats\Tests\Media\Id3v2\AbstractTestCase;
 use Nakard\MusicFormats\Media\Id3v2\Frame\AbstractFrame;
-use PhpBinaryReader\BinaryReader;
 
 /**
  * Class AbstractFrameTestCase
@@ -88,25 +87,4 @@ abstract class AbstractFrameTestCase extends AbstractTestCase
     {
         $this->frame->setSize($argument);
     }
-
-    public function testGetContent()
-    {
-        $this->assertSame('', $this->frame->getContent());
-    }
-
-    public function testSetContent()
-    {
-        $this->frame->setContent('test');
-        $this->assertSame('test', $this->frame->getContent());
-    }
-
-    /**
-     * @dataProvider exceptionForOnlyStringProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Content must be a string
-     */
-    public function testSetContentWithInvalidArgument($argument)
-    {
-        $this->frame->setContent($argument);
-    }
-} 
+}

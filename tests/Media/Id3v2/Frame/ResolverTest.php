@@ -43,8 +43,8 @@ class ResolverTest extends \Nakard\MusicFormats\Tests\Media\Id3v2\AbstractTestCa
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Identifier can't be an empty string
+     * @expectedException \Nakard\MusicFormats\Media\Id3v2\Frame\Exception\EmptyIdentifierException
+     * @expectedExceptionMessage Identifier can't be empty
      */
     public function testResolveWithEmptyIdentifier()
     {
