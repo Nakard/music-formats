@@ -49,12 +49,14 @@ abstract class AbstractFrameTestCase extends AbstractTestCase
     public function testGetFlags()
     {
         $this->assertSame(0, $this->frame->getFlags());
-    }
-
-    public function testSetFlags()
-    {
-        $this->frame->setFlags(0x10);
-        $this->assertSame(0x10, $this->frame->getFlags());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithTagAlteration());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithFileAlteration());
+        $this->assertFalse($this->frame->isReadOnly());
+        $this->assertFalse($this->frame->containsGroupInformation());
+        $this->assertFalse($this->frame->isCompressed());
+        $this->assertFalse($this->frame->isEncrypted());
+        $this->assertFalse($this->frame->isUnsynchronized());
+        $this->assertFalse($this->frame->hasDataLengthIndicator());
     }
 
     /**
@@ -86,5 +88,109 @@ abstract class AbstractFrameTestCase extends AbstractTestCase
     public function testSetSizeWithInvalidArgument($argument)
     {
         $this->frame->setSize($argument);
+    }
+
+    public function testShouldBeDiscardedWithTagAlteration()
+    {
+        $this->frame->setFlags(0x4000);
+        $this->assertTrue($this->frame->shouldBeDiscardedWithTagAlteration());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithFileAlteration());
+        $this->assertFalse($this->frame->isReadOnly());
+        $this->assertFalse($this->frame->containsGroupInformation());
+        $this->assertFalse($this->frame->isCompressed());
+        $this->assertFalse($this->frame->isEncrypted());
+        $this->assertFalse($this->frame->isUnsynchronized());
+        $this->assertFalse($this->frame->hasDataLengthIndicator());
+    }
+
+    public function testShouldBeDiscardedWithFileAlteration()
+    {
+        $this->frame->setFlags(0x2000);
+        $this->assertTrue($this->frame->shouldBeDiscardedWithFileAlteration());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithTagAlteration());
+        $this->assertFalse($this->frame->isReadOnly());
+        $this->assertFalse($this->frame->containsGroupInformation());
+        $this->assertFalse($this->frame->isCompressed());
+        $this->assertFalse($this->frame->isEncrypted());
+        $this->assertFalse($this->frame->isUnsynchronized());
+        $this->assertFalse($this->frame->hasDataLengthIndicator());
+    }
+
+    public function testIsReadOnly()
+    {
+        $this->frame->setFlags(0x1000);
+        $this->assertTrue($this->frame->isReadOnly());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithTagAlteration());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithFileAlteration());
+        $this->assertFalse($this->frame->containsGroupInformation());
+        $this->assertFalse($this->frame->isCompressed());
+        $this->assertFalse($this->frame->isEncrypted());
+        $this->assertFalse($this->frame->isUnsynchronized());
+        $this->assertFalse($this->frame->hasDataLengthIndicator());
+    }
+
+    public function testContainsGroupInformation()
+    {
+        $this->frame->setFlags(0x0040);
+        $this->assertTrue($this->frame->containsGroupInformation());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithTagAlteration());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithFileAlteration());
+        $this->assertFalse($this->frame->isReadOnly());
+        $this->assertFalse($this->frame->isCompressed());
+        $this->assertFalse($this->frame->isEncrypted());
+        $this->assertFalse($this->frame->isUnsynchronized());
+        $this->assertFalse($this->frame->hasDataLengthIndicator());
+    }
+
+    public function testIsCompressed()
+    {
+        $this->frame->setFlags(0x0008);
+        $this->assertTrue($this->frame->isCompressed());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithTagAlteration());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithFileAlteration());
+        $this->assertFalse($this->frame->isReadOnly());
+        $this->assertFalse($this->frame->containsGroupInformation());
+        $this->assertFalse($this->frame->isEncrypted());
+        $this->assertFalse($this->frame->isUnsynchronized());
+        $this->assertFalse($this->frame->hasDataLengthIndicator());
+    }
+
+    public function testIsEncrypted()
+    {
+        $this->frame->setFlags(0x0004);
+        $this->assertTrue($this->frame->isEncrypted());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithTagAlteration());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithFileAlteration());
+        $this->assertFalse($this->frame->isReadOnly());
+        $this->assertFalse($this->frame->containsGroupInformation());
+        $this->assertFalse($this->frame->isCompressed());
+        $this->assertFalse($this->frame->isUnsynchronized());
+        $this->assertFalse($this->frame->hasDataLengthIndicator());
+    }
+
+    public function testIsUnsynchronized()
+    {
+        $this->frame->setFlags(0x0002);
+        $this->assertTrue($this->frame->isUnsynchronized());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithTagAlteration());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithFileAlteration());
+        $this->assertFalse($this->frame->isReadOnly());
+        $this->assertFalse($this->frame->containsGroupInformation());
+        $this->assertFalse($this->frame->isCompressed());
+        $this->assertFalse($this->frame->isEncrypted());
+        $this->assertFalse($this->frame->hasDataLengthIndicator());
+    }
+
+    public function testHasDataLengthIndicator()
+    {
+        $this->frame->setFlags(0x0001);
+        $this->assertTrue($this->frame->hasDataLengthIndicator());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithTagAlteration());
+        $this->assertFalse($this->frame->shouldBeDiscardedWithFileAlteration());
+        $this->assertFalse($this->frame->isReadOnly());
+        $this->assertFalse($this->frame->containsGroupInformation());
+        $this->assertFalse($this->frame->isCompressed());
+        $this->assertFalse($this->frame->isEncrypted());
+        $this->assertFalse($this->frame->isUnsynchronized());
     }
 }
