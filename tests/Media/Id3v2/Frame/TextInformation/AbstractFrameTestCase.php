@@ -57,7 +57,7 @@ abstract class AbstractFrameTestCase extends BaseAbstractFrameTestCase
     }
 
     /**
-     * @dataProvider exceptionForOnlyStringProvider
+     * @dataProvider exceptionForOnlyIntegerProvider
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Text encoding must be an integer
      */
