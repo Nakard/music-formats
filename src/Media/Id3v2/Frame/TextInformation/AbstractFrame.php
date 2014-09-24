@@ -30,6 +30,16 @@ abstract class AbstractFrame extends BaseAbstractFrame
     protected $information;
 
     /**
+     * Constructs new text information frame
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->textEncoding = 0x00;
+        $this->information = '';
+    }
+
+    /**
      * @return string
      */
     public function getInformation()
@@ -39,11 +49,14 @@ abstract class AbstractFrame extends BaseAbstractFrame
 
     /**
      * @param string $information
-     *
+     * @throws \InvalidArgumentException
      * @return AbstractFrame
      */
     public function setInformation($information)
     {
+        if (!is_string($information)) {
+            throw new \InvalidArgumentException('Information must be a string');
+        }
         $this->information = $information;
 
         return $this;
@@ -59,11 +72,14 @@ abstract class AbstractFrame extends BaseAbstractFrame
 
     /**
      * @param int $textEncoding
-     *
+     * @throws \InvalidArgumentException
      * @return AbstractFrame
      */
     public function setTextEncoding($textEncoding)
     {
+        if (!is_int($textEncoding)) {
+            throw new \InvalidArgumentException('Text encoding must be an integer');
+        }
         $this->textEncoding = $textEncoding;
 
         return $this;
