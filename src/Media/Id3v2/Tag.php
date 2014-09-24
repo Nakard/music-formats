@@ -12,7 +12,6 @@ namespace Nakard\MusicFormats\Media\Id3v2;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Nakard\MusicFormats\Media\Id3v2\Frame\AbstractFrame;
-use Nakard\MusicFormats\Media\Id3v2\Frame\Resolver;
 
 /**
  * Class Tag
@@ -37,18 +36,12 @@ class Tag
     private $frames;
 
     /**
-     * @var Resolver
-     */
-    private $resolver;
-
-    /**
      * Constructs new tag
      */
     public function __construct()
     {
         $this->header = new Header();
         $this->extendedHeader = new ExtendedHeader();
-        $this->resolver = new Resolver();
         $this->frames = new ArrayCollection();
     }
 
@@ -110,25 +103,5 @@ class Tag
     public function getFrames()
     {
         return $this->frames;
-    }
-
-    /**
-     * @return Resolver
-     */
-    public function getResolver()
-    {
-        return $this->resolver;
-    }
-
-    /**
-     * @param Resolver $resolver
-     *
-     * @return Tag
-     */
-    public function setResolver(Resolver $resolver)
-    {
-        $this->resolver = $resolver;
-
-        return $this;
     }
 }

@@ -97,24 +97,4 @@ class TagTest extends AbstractTestCase
             $this->tag->getFrames()->get(0)
         );
     }
-
-    public function testGetResolver()
-    {
-        $this->assertInstanceOf('Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Resolver', $this->tag->getResolver());
-    }
-
-    public function testSetResolver()
-    {
-        $resolver = new Resolver();
-        $this->tag->setResolver($resolver);
-        $this->assertSame($resolver, $this->tag->getResolver());
-    }
-
-    /**
-     * @expectedException \ErrorException
-     */
-    public function testSetResolverWithInvalidArgument()
-    {
-        $this->tag->setResolver($this->tag);
-    }
 }
