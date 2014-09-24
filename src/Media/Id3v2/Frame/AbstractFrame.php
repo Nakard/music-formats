@@ -25,14 +25,13 @@ abstract class AbstractFrame
     /**
      * @var string
      */
-    private $identifier;
+    protected $identifier = '';
 
     /**
      * Constructs new frame
      */
     public function __construct()
     {
-        $this->identifier = '';
         $this->size = 0;
         $this->flags = 0;
     }
@@ -43,17 +42,6 @@ abstract class AbstractFrame
     public function getIdentifier()
     {
         return $this->identifier;
-    }
-
-    /**
-     * @param string $id
-     */
-    public function setIdentifier($id)
-    {
-        if (!is_string($id)) {
-            throw new \InvalidArgumentException('Identifier must be a string');
-        }
-        $this->identifier = $id;
     }
 
     /**

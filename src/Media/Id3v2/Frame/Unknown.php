@@ -17,5 +17,5 @@ namespace Nakard\MusicFormats\Media\Id3v2\Frame;
  */
 class Unknown extends AbstractFrame
 {
-
+    protected $identifier = 'XXXX';
 } 

@@ -122,7 +122,7 @@ class Reader
     {
         $frames = new ArrayCollection();
         $resolver = new Resolver();
-        while (true) {
+        while (false) {
             $identifier = $this->getBinaryReader()->readString(4);
             if (empty($identifier)) {
                 break;

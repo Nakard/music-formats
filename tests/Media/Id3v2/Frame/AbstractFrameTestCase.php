@@ -25,26 +25,7 @@ abstract class AbstractFrameTestCase extends AbstractTestCase
      */
     protected $frame;
 
-    public function testGetIdentifer()
-    {
-        $this->assertSame('', $this->frame->getIdentifier());
-    }
-
-    public function testSetIdentifier()
-    {
-        $this->frame->setIdentifier('test');
-        $this->assertSame('test', $this->frame->getIdentifier());
-    }
-
-    /**
-     * @dataProvider exceptionForOnlyStringProvider
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Identifier must be a string
-     */
-    public function testSetIdentifierWithInvalidArgument($argument)
-    {
-        $this->frame->setIdentifier($argument);
-    }
+    abstract public function testGetIdentifier();
 
     public function testGetFlags()
     {

@@ -39,8 +39,12 @@ class Resolver
             throw new InvalidIdentifierException('Identifier must have 4 characters');
         }
         switch(strtoupper($identifier)) {
+            case 'UFID':
+                return new UniqueFileIdentifier();
+                break;
             default:
-                return new Unknown($identifier);
+                return new Unknown();
+                break;
         }
     }
 } 

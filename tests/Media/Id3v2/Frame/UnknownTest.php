@@ -29,4 +29,9 @@ class UnknownTest extends AbstractFrameTestCase
         parent::setUp();
         $this->frame = new Unknown();
     }
+
+    public function testGetIdentifier()
+    {
+        $this->assertSame('XXXX', $this->frame->getIdentifier());
+    }
 } 
