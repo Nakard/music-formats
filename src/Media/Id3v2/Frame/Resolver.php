@@ -26,6 +26,7 @@ class Resolver
      * @return  AbstractFrame
      * @throws \InvalidArgumentException
      * @throws InvalidIdentifierException
+     * @throws EmptyIdentifierException
      */
     public function resolve($identifier)
     {

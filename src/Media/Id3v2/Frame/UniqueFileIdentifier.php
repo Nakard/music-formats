@@ -53,6 +53,7 @@ class UniqueFileIdentifier extends AbstractFrame
     /**
      * @param string $ownerIdentifier
      *
+     * @throws \InvalidArgumentException
      * @return UniqueFileIdentifier
      */
     public function setOwnerIdentifier($ownerIdentifier)
@@ -76,6 +77,7 @@ class UniqueFileIdentifier extends AbstractFrame
     /**
      * @param string $fileIdentifier
      *
+     * @throws \InvalidArgumentException
      * @return UniqueFileIdentifier
      */
     public function setFileIdentifier($fileIdentifier)

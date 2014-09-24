@@ -67,7 +67,7 @@ class TagRestrictions
 
     /**
      * @param int $imageEncodingRestrictions
-     *
+     * @throws \InvalidArgumentException
      * @return TagRestrictions
      */
     public function setImageEncodingRestrictions($imageEncodingRestrictions)
@@ -94,7 +94,7 @@ class TagRestrictions
 
     /**
      * @param int $imageSizeRestrictions
-     *
+     * @throws \InvalidArgumentException
      * @return TagRestrictions
      */
     public function setImageSizeRestrictions($imageSizeRestrictions)
@@ -121,7 +121,7 @@ class TagRestrictions
 
     /**
      * @param int $tagSizeRestrictions
-     *
+     * @throws \InvalidArgumentException
      * @return TagRestrictions
      */
     public function setTagSizeRestrictions($tagSizeRestrictions)
@@ -148,7 +148,7 @@ class TagRestrictions
 
     /**
      * @param int $textEncodingRestrictions
-     *
+     * @throws \InvalidArgumentException
      * @return TagRestrictions
      */
     public function setTextEncodingRestrictions($textEncodingRestrictions)
@@ -175,7 +175,7 @@ class TagRestrictions
 
     /**
      * @param int $textFieldsSizeRestrictions
-     *
+     * @throws \InvalidArgumentException
      * @return TagRestrictions
      */
     public function setTextFieldsSizeRestrictions($textFieldsSizeRestrictions)

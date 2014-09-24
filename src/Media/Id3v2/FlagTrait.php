@@ -33,6 +33,7 @@ trait FlagTrait
     /**
      * @param int $flags
      *
+     * @throws \InvalidArgumentException
      * @return ExtendedHeader
      */
     public function setFlags($flags)

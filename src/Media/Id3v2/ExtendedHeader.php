@@ -66,6 +66,7 @@ class ExtendedHeader
 
     /**
      * @param int $paddingSize
+     * @throws \InvalidArgumentException
      * @return ExtendedHeader
      */
     public function setPaddingSize($paddingSize)
@@ -88,7 +89,7 @@ class ExtendedHeader
 
     /**
      * @param int $flagBytesNumber
-     *
+     * @throws \InvalidArgumentException
      * @return ExtendedHeader
      */
     public function setFlagBytesNumber($flagBytesNumber)
@@ -111,7 +112,7 @@ class ExtendedHeader
 
     /**
      * @param int $crcData
-     *
+     * @throws \InvalidArgumentException
      * @return ExtendedHeader
      */
     public function setCrcData($crcData)
