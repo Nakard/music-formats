@@ -1,3 +1,5 @@
 /vendor/*
 /.idea/*
 /tests/coverage/*
+/build/*
+cache.properties
