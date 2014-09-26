@@ -2,5 +2,4 @@
 /.idea/*
 /tests/coverage/*
 /build/*
-/*.xml
 cache.properties
