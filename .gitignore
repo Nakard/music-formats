@@ -1,12 +1,6 @@
 /vendor/*
 /.idea/*
 /tests/coverage/*
-/build/api/*
-/build/build/*
-/build/coverage/*
-/build/logs/*
-/build/pdepend/*
-/build/phpdox/*
-/build/*.xml
+/build/*
 /*.xml
 cache.properties
