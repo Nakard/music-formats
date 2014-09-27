@@ -10,8 +10,27 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame\UrlLink;
 
+use Nakard\MusicFormats\Media\Id3v2\DescriptionTrait;
+use Nakard\MusicFormats\Media\Id3v2\TextEncodingTrait;
 
-class UserDefined 
+/**
+ * Class UserDefined
+ *
+ * @package Nakard\MusicFormats\Media\Id3v2\Frame\UrlLink
+ */
+class UserDefined extends AbstractFrame
 {
+    use TextEncodingTrait, DescriptionTrait;
 
+    protected $identifier = 'WXXX';
+
+    /**
+     * Constructs new user defined url link frame
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->textEncoding = 0x00;
+        $this->description = '';
+    }
 } 

@@ -10,8 +10,12 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame\UrlLink;
 
-
-class OfficialArtistWebpage 
+/**
+ * Class OfficialArtistWebpage
+ *
+ * @package Nakard\MusicFormats\Media\Id3v2\Frame\UrlLink
+ */
+class OfficialArtistWebpage extends AbstractFrame
 {
-
+    protected $identifier = 'WOAR';
 } 

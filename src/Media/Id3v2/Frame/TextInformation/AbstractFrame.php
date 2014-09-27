@@ -11,6 +11,7 @@
 namespace Nakard\MusicFormats\Media\Id3v2\Frame\TextInformation;
 
 use Nakard\MusicFormats\Media\Id3v2\Frame\AbstractFrame as BaseAbstractFrame;
+use Nakard\MusicFormats\Media\Id3v2\TextEncodingTrait;
 
 /**
  * Class Frame
@@ -19,10 +20,7 @@ use Nakard\MusicFormats\Media\Id3v2\Frame\AbstractFrame as BaseAbstractFrame;
  */
 abstract class AbstractFrame extends BaseAbstractFrame
 {
-    /**
-     * @var int
-     */
-    protected $textEncoding;
+    use TextEncodingTrait;
 
     /**
      * @var string
@@ -58,29 +56,6 @@ abstract class AbstractFrame extends BaseAbstractFrame
             throw new \InvalidArgumentException('Information must be a string');
         }
         $this->information = $information;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTextEncoding()
-    {
-        return $this->textEncoding;
-    }
-
-    /**
-     * @param int $textEncoding
-     * @throws \InvalidArgumentException
-     * @return AbstractFrame
-     */
-    public function setTextEncoding($textEncoding)
-    {
-        if (!is_int($textEncoding)) {
-            throw new \InvalidArgumentException('Text encoding must be an integer');
-        }
-        $this->textEncoding = $textEncoding;
 
         return $this;
     }

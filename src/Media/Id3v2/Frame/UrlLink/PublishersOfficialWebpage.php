@@ -10,8 +10,12 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame\UrlLink;
 
-
-class PublishersOfficialWebpage 
+/**
+ * Class PublishersOfficialWebpage
+ *
+ * @package Nakard\MusicFormats\Media\Id3v2\Frame\UrlLink
+ */
+class PublishersOfficialWebpage extends AbstractFrame
 {
-
+    protected $identifier = 'WPUB';
 } 

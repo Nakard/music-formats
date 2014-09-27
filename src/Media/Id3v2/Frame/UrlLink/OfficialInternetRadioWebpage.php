@@ -10,8 +10,12 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame\UrlLink;
 
-
-class OfficialInternetRadioWebpage 
+/**
+ * Class OfficialInternetRadioWebpage
+ *
+ * @package Nakard\MusicFormats\Media\Id3v2\Frame\UrlLink
+ */
+class OfficialInternetRadioWebpage extends AbstractFrame
 {
-
+    protected $identifier = 'WORS';
 } 

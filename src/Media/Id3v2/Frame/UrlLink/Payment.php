@@ -10,8 +10,12 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame\UrlLink;
 
-
-class Payment 
+/**
+ * Class Payment
+ *
+ * @package Nakard\MusicFormats\Media\Id3v2\Frame\UrlLink
+ */
+class Payment extends AbstractFrame
 {
-
+    protected $identifier = 'WPAY';
 } 
