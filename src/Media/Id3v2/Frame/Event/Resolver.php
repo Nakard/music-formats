@@ -18,6 +18,37 @@ namespace Nakard\MusicFormats\Media\Id3v2\Frame\Event;
 class Resolver 
 {
     /**
+     * @var array Mapping of event classes
+     */
+    private $mapping = [
+        0x00 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\PaddingEvent',
+        0x01 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\InitialSilenceEndEvent',
+        0x02 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\IntroStartEvent',
+        0x03 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\MainPartStartEvent',
+        0x04 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\OutroStartEvent',
+        0x05 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\OutroEndEvent',
+        0x06 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\VerseStartEvent',
+        0x07 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\RefrainStartEvent',
+        0x08 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\InterludeStartEvent',
+        0x09 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\ThemeStartEvent',
+        0x0a => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\VariationStartEvent',
+        0x0b => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\KeyChangeEvent',
+        0x0c => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\TimeChangeEvent',
+        0x0d => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\UnwantedNoiseEvent',
+        0x0e => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\SustainedNoiseEvent',
+        0x0f => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\SustainedNoiseEndEvent',
+        0x10 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\IntroEndEvent',
+        0x11 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\MainPartEndEvent',
+        0x12 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\VerseEndEvent',
+        0x13 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\RefrainEndEvent',
+        0x14 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\ThemeEndEvent',
+        0x15 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\ProfanityEvent',
+        0x16 => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\ProfanityEndEvent',
+        0xfd => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\AudioEndEvent',
+        0xfe => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\AudioFileEndEvent',
+        0xff => '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\FillerEvent',
+    ];
+    /**
      * @param int $typeCode
      *
      * @return AbstractEvent
@@ -27,61 +58,9 @@ class Resolver
         if (!is_int($typeCode)) {
             throw new \InvalidArgumentException('Type code must be an integer');
         }
-        switch ($typeCode) {
-            case 0x00:
-                return new PaddingEvent();
-            case 0x01:
-                return new InitialSilenceEndEvent();
-            case 0x02:
-                return new IntroStartEvent();
-            case 0x03:
-                return new MainPartStartEvent();
-            case 0x04:
-                return new OutroStartEvent();
-            case 0x05:
-                return new OutroEndEvent();
-            case 0x06:
-                return new VerseStartEvent();
-            case 0x07:
-                return new RefrainStartEvent();
-            case 0x08:
-                return new InterludeStartEvent();
-            case 0x09:
-                return new ThemeStartEvent();
-            case 0x0a:
-                return new VariationStartEvent();
-            case 0x0b:
-                return new KeyChangeEvent();
-            case 0x0c:
-                return new TimeChangeEvent();
-            case 0x0d:
-                return new UnwantedNoiseEvent();
-            case 0x0e:
-                return new SustainedNoiseEvent();
-            case 0x0f:
-                return new SustainedNoiseEndEvent();
-            case 0x10:
-                return new IntroEndEvent();
-            case 0x11:
-                return new MainPartEndEvent();
-            case 0x12:
-                return new VerseEndEvent();
-            case 0x13:
-                return new RefrainEndEvent();
-            case 0x14:
-                return new ThemeEndEvent();
-            case 0x15:
-                return new ProfanityEvent();
-            case 0x16:
-                return new ProfanityEndEvent();
-            case 0xfd:
-                return new AudioEndEvent();
-            case 0xfe:
-                return new AudioFileEndEvent();
-            case 0xff:
-                return new FillerEvent();
-            default:
-                return new UnknownEvent();
+        if (!isset($this->mapping[$typeCode])) {
+            return new UnknownEvent();
         }
+        return new $this->mapping[$typeCode];
     }
 } 
