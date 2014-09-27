@@ -32,6 +32,6 @@ class OfficialAudioFileWebpageTest extends AbstractFrameTestCase
 
     public function testGetIdentifier()
     {
-        $this->assertSame('WCOP', $this->frame->getIdentifier());
+        $this->assertSame('WOAF', $this->frame->getIdentifier());
     }
 } 
