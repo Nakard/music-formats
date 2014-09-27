@@ -71,7 +71,7 @@ class ResolverTest extends BaseTestCase
             [0xfd, '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\AudioEndEvent'],
             [0xfe, '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\AudioFileEndEvent'],
             [0xff, '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\FillerEvent'],
-            ['te', '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\UnknownEvent']
+            [0xfa, '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Event\\UnknownEvent']
         ];
     }
 
