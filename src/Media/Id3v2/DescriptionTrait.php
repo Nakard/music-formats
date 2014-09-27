@@ -45,4 +45,4 @@ trait DescriptionTrait
 
         return $this;
     }
-} 
+}
