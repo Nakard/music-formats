@@ -19,5 +19,5 @@ use Nakard\MusicFormats\Media\Id3v2\Frame\TextInformation\AbstractFrame;
  */
 class EncodingTime extends AbstractFrame
 {
-    protected $identifer = 'TDEN';
+    protected $identifier = 'TDEN';
 } 
