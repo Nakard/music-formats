@@ -10,8 +10,22 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame;
 
-
-class EventTimingCodes 
+/**
+ * Class EventTimingCodes
+ *
+ * @package Nakard\MusicFormats\Media\Id3v2\Frame
+ */
+class EventTimingCodes extends AbstractFrame
 {
+    protected $identifier = 'ETCO';
 
+    /**
+     * @var integer
+     */
+    private $timestampFormat;
+
+    /**
+     * @var
+     */
+    private $events;
 } 

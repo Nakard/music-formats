@@ -61,6 +61,6 @@ class Resolver
         if (!isset($this->mapping[$typeCode])) {
             return new UnknownEvent();
         }
-        return new $this->mapping[$typeCode];
+        return new $this->mapping[$typeCode]();
     }
 } 

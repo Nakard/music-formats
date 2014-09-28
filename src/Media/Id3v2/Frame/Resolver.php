@@ -20,6 +20,9 @@ use Nakard\MusicFormats\Media\Id3v2\Frame\Exception\InvalidIdentifierException;
  */
 class Resolver
 {
+    private $mapping = [
+        'UFID'  =>  '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\UniqueFileIdentifier'
+    ];
     /**
      * @param   string       $identifier
      *
@@ -39,13 +42,10 @@ class Resolver
         if (4 !== strlen($identifier)) {
             throw new InvalidIdentifierException('Identifier must have 4 characters');
         }
-        switch(strtoupper($identifier)) {
-            case 'UFID':
-                return new UniqueFileIdentifier();
-                break;
-            default:
-                return new Unknown();
-                break;
+        $id = strtoupper($identifier);
+        if (!isset($this->mapping[$id])) {
+            return new Unknown();
         }
+        return new $this->mapping[$id]();
     }
 } 
