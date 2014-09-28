@@ -26,6 +26,7 @@ class Resolver
         'ETCO'  =>  'EventTimingCodes',
         'MLLT'  =>  'MpegLocationLookupTable',
         'SYTC'  =>  'SynchronisedTempoCodes',
+        'USLT'  =>  'UnsynchronisedLyricsTranscription',
         'TBPM'  =>  'TextInformation\\Derived\\BeatsPerMinute',
         'TCON'  =>  'TextInformation\\Derived\\ContentType',
         'TFLT'  =>  'TextInformation\\Derived\\FileType',
