@@ -35,7 +35,7 @@ trait TextEncodingTrait
     /**
      * @param int $textEncoding
      * @throws \InvalidArgumentException
-     * @return AbstractFrame
+     * @return $this
      */
     public function setTextEncoding($textEncoding)
     {

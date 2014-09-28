@@ -33,7 +33,7 @@ trait SizeTrait
     /**
      * @param int $size
      * @throws \InvalidArgumentException
-     * @return Header
+     * @return $this
      */
     public function setSize($size)
     {

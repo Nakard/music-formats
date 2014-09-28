@@ -34,7 +34,7 @@ trait DescriptionTrait
     /**
      * @param string $description
      * @throws \InvalidArgumentException
-     * @return AbstractFrame
+     * @return $this
      */
     public function setDescription($description)
     {
