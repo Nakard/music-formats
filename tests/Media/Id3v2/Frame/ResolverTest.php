@@ -84,7 +84,9 @@ class ResolverTest extends \Nakard\MusicFormats\Tests\Media\Id3v2\AbstractTestCa
     public function resolveProvider()
     {
         return [
-            'unknown'   =>  ['ABCD', 'Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Unknown']
+            ['ABCD', 'Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Unknown'],
+            ['UFID', 'Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\UniqueFileIdentifier'],
+            ['MCDI', 'Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\MusicCdIdentifier']
         ];
     }
 } 

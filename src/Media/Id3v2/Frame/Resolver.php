@@ -21,7 +21,8 @@ use Nakard\MusicFormats\Media\Id3v2\Frame\Exception\InvalidIdentifierException;
 class Resolver
 {
     private $mapping = [
-        'UFID'  =>  '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\UniqueFileIdentifier'
+        'UFID'  =>  '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\UniqueFileIdentifier',
+        'MCDI'  =>  '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\MusicCdIdentifier',
     ];
     /**
      * @param   string       $identifier
