@@ -30,7 +30,7 @@ class MusicCdIdentifier extends AbstractFrame
     public function __construct()
     {
         parent::__construct();
-        $this->cdToc = '';
+        $this->cdToc = (binary) '';
     }
 
     /**
@@ -38,7 +38,7 @@ class MusicCdIdentifier extends AbstractFrame
      */
     public function getCdToc()
     {
-        return $this->cdToc;
+        return (binary) $this->cdToc;
     }
 
     /**
@@ -49,9 +49,9 @@ class MusicCdIdentifier extends AbstractFrame
     public function setCdToc($cdToc)
     {
         if (!is_string($cdToc)) {
-            throw new \InvalidArgumentException('CD TOC must be a string');
+            throw new \InvalidArgumentException('CD TOC must be a binary string');
         }
-        $this->cdToc = $cdToc;
+        $this->cdToc = (binary) $cdToc;
 
         return $this;
     }

@@ -49,7 +49,7 @@ class MusicCdIdentifierTest extends AbstractFrameTestCase
     /**
      * @dataProvider exceptionForOnlyStringProvider
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage CD TOC must be a string
+     * @expectedExceptionMessage CD TOC must be a binary string
      */
     public function testSetCdTocWithInvalidArgument($argument)
     {
