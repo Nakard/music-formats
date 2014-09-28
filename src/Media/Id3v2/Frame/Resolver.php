@@ -25,6 +25,7 @@ class Resolver
         'MCDI'  =>  'MusicCdIdentifier',
         'ETCO'  =>  'EventTimingCodes',
         'MLLT'  =>  'MpegLocationLookupTable',
+        'SYTC'  =>  'SynchronisedTempoCodes',
         'TBPM'  =>  'TextInformation\\Derived\\BeatsPerMinute',
         'TCON'  =>  'TextInformation\\Derived\\ContentType',
         'TFLT'  =>  'TextInformation\\Derived\\FileType',
