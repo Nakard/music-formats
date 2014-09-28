@@ -49,4 +49,4 @@ class Resolver
         }
         return new $this->mapping[$id]();
     }
-} 
+}
