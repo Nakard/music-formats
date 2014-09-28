@@ -24,6 +24,7 @@ class Resolver
         'UFID'  =>  'UniqueFileIdentifier',
         'MCDI'  =>  'MusicCdIdentifier',
         'ETCO'  =>  'EventTimingCodes',
+        'MLLT'  =>  'MpegLocationLookupTable',
         'TBPM'  =>  'TextInformation\\Derived\\BeatsPerMinute',
         'TCON'  =>  'TextInformation\\Derived\\ContentType',
         'TFLT'  =>  'TextInformation\\Derived\\FileType',
