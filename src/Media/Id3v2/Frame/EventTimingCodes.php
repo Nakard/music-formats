@@ -12,6 +12,7 @@ namespace Nakard\MusicFormats\Media\Id3v2\Frame;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Nakard\MusicFormats\Media\Id3v2\Frame\Event\AbstractEvent;
+use Nakard\MusicFormats\Media\Id3v2\TimestampFormatTrait;
 
 /**
  * Class EventTimingCodes
@@ -20,12 +21,9 @@ use Nakard\MusicFormats\Media\Id3v2\Frame\Event\AbstractEvent;
  */
 class EventTimingCodes extends AbstractFrame
 {
-    protected $identifier = 'ETCO';
+    use TimestampFormatTrait;
 
-    /**
-     * @var integer
-     */
-    private $timestampFormat;
+    protected $identifier = 'ETCO';
 
     /**
      * @var ArrayCollection
@@ -40,29 +38,6 @@ class EventTimingCodes extends AbstractFrame
         parent::__construct();
         $this->timestampFormat = 0x01;
         $this->events = new ArrayCollection();
-    }
-
-    /**
-     * @return int
-     */
-    public function getTimestampFormat()
-    {
-        return $this->timestampFormat;
-    }
-
-    /**
-     * @param int $timestampFormat
-     * @throws \InvalidArgumentException
-     * @return EventTimingCodes
-     */
-    public function setTimestampFormat($timestampFormat)
-    {
-        if (!is_int($timestampFormat)) {
-            throw new \InvalidArgumentException('Timestamp format must be an integer');
-        }
-        $this->timestampFormat = $timestampFormat;
-
-        return $this;
     }
 
     /**
