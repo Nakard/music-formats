@@ -100,7 +100,7 @@ class SynchronisedTextTest extends AbstractFrameTestCase
 
     public function testGetTimestampFormat()
     {
-        $this->assertSame(0x01, $this->frame->getTimestampFormat());
+        $this->assertSame(0x00, $this->frame->getTimestampFormat());
     }
 
     public function testSetTimestampFormat()
