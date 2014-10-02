@@ -27,7 +27,7 @@ class Resolver
         'MLLT'  =>  'MpegLocationLookupTable',
         'SYTC'  =>  'SynchronisedTempoCodes',
         'USLT'  =>  'UnsynchronisedLyricsTranscription',
-        'SYLT'  =>  'SynchronisedLyrics',
+        'SYLT'  =>  'SynchronisedText',
         'COMM'  =>  'Comments',
         'RVA2'  =>  'RelativeVolumeAdjustment',
         'EQU2'  =>  'Equalisation',

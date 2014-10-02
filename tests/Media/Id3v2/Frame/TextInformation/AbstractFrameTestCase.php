@@ -45,6 +45,7 @@ abstract class AbstractFrameTestCase extends BaseAbstractFrameTestCase
     {
         $this->frame->setInformation($argument);
     }
+
     public function testGetTextEncoding()
     {
         $this->assertSame(0x00, $this->frame->getTextEncoding());
@@ -65,5 +66,4 @@ abstract class AbstractFrameTestCase extends BaseAbstractFrameTestCase
     {
         $this->frame->setTextEncoding($argument);
     }
-
-} 
+}

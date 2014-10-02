@@ -89,7 +89,7 @@ class ResolverTest extends \Nakard\MusicFormats\Tests\Media\Id3v2\AbstractTestCa
             ['MLLT', '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\MpegLocationLookupTable'],
             ['SYTC', '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\SynchronisedTempoCodes'],
             ['USLT', '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\UnsynchronisedLyricsTranscription'],
-            ['SYLT', '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\SynchronisedLyrics'],
+            ['SYLT', '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\SynchronisedText'],
             ['COMM', '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Comments'],
             ['RVA2', '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\RelativeVolumeAdjustment'],
             ['EQU2', '\\Nakard\\MusicFormats\\Media\\Id3v2\\Frame\\Equalisation'],

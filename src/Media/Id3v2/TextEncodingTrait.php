@@ -10,7 +10,6 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2;
 
-use Nakard\MusicFormats\Media\Id3v2\Frame\AbstractFrame;
 
 /**
  * Class TextEncodingTrait
@@ -46,4 +45,4 @@ trait TextEncodingTrait
 
         return $this;
     }
-} 
+}

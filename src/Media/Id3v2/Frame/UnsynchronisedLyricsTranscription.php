@@ -10,6 +10,8 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame;
 
+use Nakard\MusicFormats\Media\Id3v2\ContentDescriptorTrait;
+use Nakard\MusicFormats\Media\Id3v2\LanguageTrait;
 use Nakard\MusicFormats\Media\Id3v2\TextEncodingTrait;
 
 /**
@@ -19,19 +21,9 @@ use Nakard\MusicFormats\Media\Id3v2\TextEncodingTrait;
  */
 class UnsynchronisedLyricsTranscription extends AbstractFrame
 {
-    use TextEncodingTrait;
+    use TextEncodingTrait, LanguageTrait, ContentDescriptorTrait;
 
     protected $identifier = 'USLT';
-
-    /**
-     * @var int
-     */
-    private $language;
-
-    /**
-     * @var string
-     */
-    private $contentDescriptor;
 
     /**
      * @var string
@@ -47,6 +39,7 @@ class UnsynchronisedLyricsTranscription extends AbstractFrame
         $this->language = 0x000000;
         $this->contentDescriptor = '';
         $this->lyrics = '';
+        $this->textEncoding = 0x00;
     }
 
     /**
@@ -68,48 +61,6 @@ class UnsynchronisedLyricsTranscription extends AbstractFrame
             throw new \InvalidArgumentException('Lyrics must be a string');
         }
         $this->lyrics = $lyrics;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLanguage()
-    {
-        return $this->language;
-    }
-
-    /**
-     * @param int $language
-     */
-    public function setLanguage($language)
-    {
-        if (!is_int($language)) {
-            throw new \InvalidArgumentException('Language must be an integer');
-        }
-        $this->language = $language;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentDescriptor()
-    {
-        return $this->contentDescriptor;
-    }
-
-    /**
-     * @param string $contentDescriptor
-     */
-    public function setContentDescriptor($contentDescriptor)
-    {
-        if (!is_string($contentDescriptor)) {
-            throw new \InvalidArgumentException('Content descriptor must be a string');
-        }
-        $this->contentDescriptor = $contentDescriptor;
 
         return $this;
     }

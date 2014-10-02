@@ -12,6 +12,11 @@ namespace Nakard\MusicFormats\Tests\Media\Id3v2\Frame\TextInformation;
 
 use Nakard\MusicFormats\Media\Id3v2\Frame\TextInformation\UserDefined;
 
+/**
+ * Class UserDefinedTest
+ *
+ * @package Nakard\MusicFormats\Tests\Media\Id3v2\Frame\TextInformation
+ */
 class UserDefinedTest extends AbstractFrameTestCase
 {
     /**
