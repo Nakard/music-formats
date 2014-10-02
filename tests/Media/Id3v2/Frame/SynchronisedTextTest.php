@@ -118,5 +118,26 @@ class SynchronisedTextTest extends AbstractFrameTestCase
     {
         $this->frame->setTimestampFormat($argument);
     }
+
+    public function testGetContentType()
+    {
+        $this->assertSame(0x00, $this->frame->getContentType());
+    }
+
+    public function testSetContentType()
+    {
+        $this->frame->setContentType(0x02);
+        $this->assertSame(0x02, $this->frame->getContentType());
+    }
+
+    /**
+     * @dataProvider exceptionForOnlyIntegerProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Content type must be an integer
+     */
+    public function testSetContentTypeWithInvalidArgument($argument)
+    {
+        $this->frame->setContentType($argument);
+    }
 }
  
