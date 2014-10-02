@@ -20,7 +20,7 @@ trait LanguageTrait
     /**
      * @var int
      */
-    private $language;
+    protected $language;
 
 
     /**
