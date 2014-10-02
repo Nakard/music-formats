@@ -10,6 +10,8 @@
 
 namespace Nakard\MusicFormats\Tests\Media\Id3v2\Frame;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Nakard\MusicFormats\Media\Id3v2\Frame\Sync\Sync;
 use Nakard\MusicFormats\Media\Id3v2\Frame\SynchronisedText;
 
 /**
@@ -138,6 +140,29 @@ class SynchronisedTextTest extends AbstractFrameTestCase
     public function testSetContentTypeWithInvalidArgument($argument)
     {
         $this->frame->setContentType($argument);
+    }
+
+    public function testGetSyncs()
+    {
+        $this->assertEquals(new ArrayCollection(), $this->frame->getSyncs());
+        $this->assertEmpty($this->frame->getSyncs());
+    }
+
+    public function testAddSync()
+    {
+        $sync = new Sync();
+        $sync->setTimestamp(0x1000)->setSyncedText('test');
+        $this->frame->addSync($sync);
+        $this->assertSame($sync, $this->frame->getSyncs()->get(0));
+        $this->assertCount(1, $this->frame->getSyncs());
+    }
+
+    /**
+     * @expectedException \ErrorException
+     */
+    public function testAddSyncWithInvalidArgument()
+    {
+        $this->frame->addSync($this->frame);
     }
 }
  

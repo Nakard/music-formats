@@ -10,17 +10,16 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame\Event;
 
+use Nakard\MusicFormats\Media\Id3v2\TimestampTrait;
+
 /**
  * Class AbstractEvent
  *
  * @package Nakard\MusicFormats\Media\Id3v2\Frame\Event
  */
-class AbstractEvent 
+class AbstractEvent
 {
-    /**
-     * @var int
-     */
-    protected $timestamp;
+    use TimestampTrait;
 
     /**
      * @var int
@@ -42,29 +41,4 @@ class AbstractEvent
     {
         return $this->typeCode;
     }
-
-    /**
-     * @return int
-     */
-    public function getTimestamp()
-    {
-        return $this->timestamp;
-    }
-
-    /**
-     * @param int $timestamp
-     * @throws \InvalidArgumentException
-     * @return AbstractEvent
-     */
-    public function setTimestamp($timestamp)
-    {
-        if (!is_int($timestamp)) {
-            throw new \InvalidArgumentException('Timestamp must be an integer');
-        }
-        $this->timestamp = $timestamp;
-
-        return $this;
-    }
-
-
-} 
+}

@@ -10,7 +10,9 @@
 
 namespace Nakard\MusicFormats\Media\Id3v2\Frame;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Nakard\MusicFormats\Media\Id3v2\ContentDescriptorTrait;
+use Nakard\MusicFormats\Media\Id3v2\Frame\Sync\Sync;
 use Nakard\MusicFormats\Media\Id3v2\LanguageTrait;
 use Nakard\MusicFormats\Media\Id3v2\TextEncodingTrait;
 use Nakard\MusicFormats\Media\Id3v2\TimestampFormatTrait;
@@ -32,6 +34,11 @@ class SynchronisedText extends AbstractFrame
     private $contentType;
 
     /**
+     * @var ArrayCollection
+     */
+    private $syncs;
+
+    /**
      * @inheritdoc
      */
     public function __construct()
@@ -42,6 +49,7 @@ class SynchronisedText extends AbstractFrame
         $this->timestampFormat = 0x00;
         $this->contentType = 0x00;
         $this->contentDescriptor = '';
+        $this->syncs = new ArrayCollection();
     }
 
     /**
@@ -65,6 +73,26 @@ class SynchronisedText extends AbstractFrame
         $this->contentType = $contentType;
 
         return $this;
+    }
+
+    /**
+     * @param Sync $sync
+     *
+     * @return $this
+     */
+    public function addSync(Sync $sync)
+    {
+        $this->syncs->add($sync);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSyncs()
+    {
+        return $this->syncs;
     }
 }
  
